@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9AD8673C1F3A713200C2168B /* renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9AD8673B1F3A713200C2168B /* renderer.cpp */; };
+		9AD8673C1F3A713200C2168B /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9AD8673B1F3A713200C2168B /* main.cpp */; };
 		9AD867431F3A726E00C2168B /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AD867421F3A726E00C2168B /* OpenGL.framework */; };
 		9AD867451F3A72C000C2168B /* libGLEW.2.1.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AD867441F3A72C000C2168B /* libGLEW.2.1.0.dylib */; };
 		9AD867471F3A72E200C2168B /* libglfw.3.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AD867461F3A72E200C2168B /* libglfw.3.2.dylib */; };
@@ -27,7 +27,7 @@
 
 /* Begin PBXFileReference section */
 		9AD867381F3A713200C2168B /* meshReduction */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = meshReduction; sourceTree = BUILT_PRODUCTS_DIR; };
-		9AD8673B1F3A713200C2168B /* renderer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = renderer.cpp; sourceTree = "<group>"; };
+		9AD8673B1F3A713200C2168B /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		9AD867421F3A726E00C2168B /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		9AD867441F3A72C000C2168B /* libGLEW.2.1.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libGLEW.2.1.0.dylib; path = ../../../../usr/local/Cellar/glew/2.1.0/lib/libGLEW.2.1.0.dylib; sourceTree = "<group>"; };
 		9AD867461F3A72E200C2168B /* libglfw.3.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libglfw.3.2.dylib; path = ../../../../usr/local/Cellar/glfw/3.2.1/lib/libglfw.3.2.dylib; sourceTree = "<group>"; };
@@ -53,7 +53,7 @@
 				9AD867461F3A72E200C2168B /* libglfw.3.2.dylib */,
 				9AD867441F3A72C000C2168B /* libGLEW.2.1.0.dylib */,
 				9AD867421F3A726E00C2168B /* OpenGL.framework */,
-				9AD8673A1F3A713200C2168B /* src */,
+				9AD8673A1F3A713200C2168B /* meshReduction */,
 				9AD867391F3A713200C2168B /* Products */,
 			);
 			sourceTree = "<group>";
@@ -66,12 +66,11 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		9AD8673A1F3A713200C2168B /* src */ = {
+		9AD8673A1F3A713200C2168B /* meshReduction */ = {
 			isa = PBXGroup;
 			children = (
-				9AD8673B1F3A713200C2168B /* renderer.cpp */,
+				9AD8673B1F3A713200C2168B /* main.cpp */,
 			);
-			name = src;
 			path = meshReduction;
 			sourceTree = "<group>";
 		};
@@ -131,7 +130,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9AD8673C1F3A713200C2168B /* renderer.cpp in Sources */,
+				9AD8673C1F3A713200C2168B /* main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -268,6 +267,7 @@
 				9AD867411F3A713200C2168B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

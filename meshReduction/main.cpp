@@ -1,5 +1,5 @@
 //
-//  renderer.cpp
+//  main.cpp
 //  meshReduction
 //
 //  Created by Graham Stubbs on 8/9/17.
