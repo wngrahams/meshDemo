@@ -37,8 +37,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		9A6820F51F3BBAED0047F520 /* Shader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Shader.h; sourceTree = "<group>"; };
 		9A6820F61F3BC9310047F520 /* resources */ = {isa = PBXFileReference; lastKnownFileType = folder; path = resources; sourceTree = "<group>"; };
+		9A6820F91F3BCD750047F520 /* src */ = {isa = PBXFileReference; lastKnownFileType = folder; path = src; sourceTree = "<group>"; };
 		9AD867381F3A713200C2168B /* meshReduction */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = meshReduction; sourceTree = BUILT_PRODUCTS_DIR; };
 		9AD8673B1F3A713200C2168B /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; usesTabs = 0; };
 		9AD867421F3A726E00C2168B /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
@@ -82,8 +82,8 @@
 		9AD8673A1F3A713200C2168B /* meshReduction */ = {
 			isa = PBXGroup;
 			children = (
+				9A6820F91F3BCD750047F520 /* src */,
 				9A6820F61F3BC9310047F520 /* resources */,
-				9A6820F51F3BBAED0047F520 /* Shader.h */,
 				9AD8673B1F3A713200C2168B /* main.cpp */,
 			);
 			path = meshReduction;

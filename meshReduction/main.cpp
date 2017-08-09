@@ -16,7 +16,7 @@
 #include <GLFW/glfw3.h>
 
 //Shaders
-#include "Shader.h"
+#include "src/Shader.h"
 
 const GLint WIDTH = 800, HEIGHT = 600; //screen dimensions
 
