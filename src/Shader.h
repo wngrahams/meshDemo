@@ -53,7 +53,7 @@ public:
             fragmentCode = fShaderStream.str();
             
         } catch (std::ifstream::failure e) {
-            std::cout << "ERROR::SHADER::FILE_NOT_SUCCESSFULLY_READ" << std::endl;
+            std::cout << "\nERROR::SHADER::FILE_NOT_SUCCESSFULLY_READ" << std::endl;
             std::cout << vertexCode << std::endl;
             std::cout << fragmentCode << std::endl;
         }
@@ -73,7 +73,8 @@ public:
         glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &success);
         if(!success) {
             glGetShaderInfoLog(vertexShader, 512, NULL, infoLog);
-            std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infoLog << std::endl;
+            std::cout << "\nERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infoLog << std::endl;
+            std::cout << vertexCode << std::endl;
         }
         
         //initialize and compile fragment shaders
@@ -85,7 +86,8 @@ public:
         glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &success);
         if(!success) {
             glGetShaderInfoLog(fragmentShader, 512, NULL, infoLog);
-            std::cout << "ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n" << infoLog << std::endl;
+            std::cout << "\nERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n" << infoLog << std::endl;
+            std::cout << fragmentCode << std::endl;
         }
         
         //shader program, link shaders
@@ -98,7 +100,9 @@ public:
         glGetProgramiv(this->Program, GL_LINK_STATUS, &success);
         if(!success) {
             glGetProgramInfoLog(this->Program, 512, NULL, infoLog);
-            std::cout << "ERROR::SHADER::PROGRAM::LINKING_FAILED\n" << infoLog << std::endl;
+            std::cout << "\nERROR::SHADER::PROGRAM::LINKING_FAILED\n" << infoLog << std::endl;
+            std::cout << vertexCode << std::endl;
+            std::cout << fragmentCode << std::endl;
         }
         
         //clean up shaders
