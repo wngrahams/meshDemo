@@ -7,11 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9A6820F81F3BC9910047F520 /* resources in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9A6820F61F3BC9310047F520 /* resources */; };
 		9AD5E04E1F3C8A0100E57071 /* etc1_utils.c in Sources */ = {isa = PBXBuildFile; fileRef = 9AD5E0391F3C8A0100E57071 /* etc1_utils.c */; };
 		9AD5E04F1F3C8A0100E57071 /* image_DXT.c in Sources */ = {isa = PBXBuildFile; fileRef = 9AD5E03B1F3C8A0100E57071 /* image_DXT.c */; };
 		9AD5E0501F3C8A0100E57071 /* image_helper.c in Sources */ = {isa = PBXBuildFile; fileRef = 9AD5E03D1F3C8A0100E57071 /* image_helper.c */; };
 		9AD5E0511F3C8A0100E57071 /* SOIL2.c in Sources */ = {isa = PBXBuildFile; fileRef = 9AD5E0421F3C8A0100E57071 /* SOIL2.c */; };
+		9AD5E0591F3C933C00E57071 /* images in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9AD5E0581F3C931900E57071 /* images */; };
+		9AD5E05A1F3C934800E57071 /* shaders in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9AD5E0561F3C930100E57071 /* shaders */; };
 		9AD8673C1F3A713200C2168B /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9AD8673B1F3A713200C2168B /* main.cpp */; };
 		9AD867431F3A726E00C2168B /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AD867421F3A726E00C2168B /* OpenGL.framework */; };
 		9AD867451F3A72C000C2168B /* libGLEW.2.1.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AD867441F3A72C000C2168B /* libGLEW.2.1.0.dylib */; };
@@ -25,7 +26,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 7;
 			files = (
-				9A6820F81F3BC9910047F520 /* resources in CopyFiles */,
+				9AD5E05A1F3C934800E57071 /* shaders in CopyFiles */,
+				9AD5E0591F3C933C00E57071 /* images in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -41,8 +43,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		9A6820F61F3BC9310047F520 /* resources */ = {isa = PBXFileReference; lastKnownFileType = folder; path = resources; sourceTree = "<group>"; };
-		9A6821321F3C6DA00047F520 /* Shader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Shader.h; sourceTree = "<group>"; };
+		9A6821321F3C6DA00047F520 /* Shader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Shader.h; path = src/Shader.h; sourceTree = SOURCE_ROOT; };
 		9AD5E0391F3C8A0100E57071 /* etc1_utils.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = etc1_utils.c; sourceTree = "<group>"; };
 		9AD5E03A1F3C8A0100E57071 /* etc1_utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = etc1_utils.h; sourceTree = "<group>"; };
 		9AD5E03B1F3C8A0100E57071 /* image_DXT.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = image_DXT.c; sourceTree = "<group>"; };
@@ -64,6 +65,8 @@
 		9AD5E04B1F3C8A0100E57071 /* stbi_pkm_c.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stbi_pkm_c.h; sourceTree = "<group>"; };
 		9AD5E04C1F3C8A0100E57071 /* stbi_pvr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stbi_pvr.h; sourceTree = "<group>"; };
 		9AD5E04D1F3C8A0100E57071 /* stbi_pvr_c.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stbi_pvr_c.h; sourceTree = "<group>"; };
+		9AD5E0561F3C930100E57071 /* shaders */ = {isa = PBXFileReference; lastKnownFileType = folder; name = shaders; path = res/shaders; sourceTree = SOURCE_ROOT; };
+		9AD5E0581F3C931900E57071 /* images */ = {isa = PBXFileReference; lastKnownFileType = folder; name = images; path = res/images; sourceTree = SOURCE_ROOT; };
 		9AD867381F3A713200C2168B /* meshReduction */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = meshReduction; sourceTree = BUILT_PRODUCTS_DIR; };
 		9AD8673B1F3A713200C2168B /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; usesTabs = 0; };
 		9AD867421F3A726E00C2168B /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
@@ -121,9 +124,19 @@
 			path = SOIL2;
 			sourceTree = "<group>";
 		};
+		9AD5E0551F3C92D700E57071 /* res */ = {
+			isa = PBXGroup;
+			children = (
+				9AD5E0581F3C931900E57071 /* images */,
+				9AD5E0561F3C930100E57071 /* shaders */,
+			);
+			path = res;
+			sourceTree = SOURCE_ROOT;
+		};
 		9AD8672F1F3A713200C2168B = {
 			isa = PBXGroup;
 			children = (
+				9AD5E0551F3C92D700E57071 /* res */,
 				9AD867461F3A72E200C2168B /* libglfw.3.2.dylib */,
 				9AD867441F3A72C000C2168B /* libGLEW.2.1.0.dylib */,
 				9AD867421F3A726E00C2168B /* OpenGL.framework */,
@@ -144,7 +157,6 @@
 		9AD8673A1F3A713200C2168B /* src */ = {
 			isa = PBXGroup;
 			children = (
-				9A6820F61F3BC9310047F520 /* resources */,
 				9AD8673B1F3A713200C2168B /* main.cpp */,
 				9A6821321F3C6DA00047F520 /* Shader.h */,
 			);

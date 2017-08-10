@@ -66,7 +66,7 @@ int main () {
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     
-    Shader myShader("resources/shaders/core.vs", "resources/shaders/core.frag");
+    Shader myShader("res/shaders/core.vs", "res/shaders/core.frag");
     
     //create vertex data for drawing
     GLfloat vertices[] = {
@@ -131,7 +131,7 @@ int main () {
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     
     //load & create texture and generate mitmaps
-    unsigned char *image = SOIL_load_image("resources/images/Image2.png", &width, &height, 0, SOIL_LOAD_RGBA);
+    unsigned char *image = SOIL_load_image("res/images/Image2.png", &width, &height, 0, SOIL_LOAD_RGBA);
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
     glGenerateMipmap(GL_TEXTURE_2D);
     
