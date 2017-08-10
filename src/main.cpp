@@ -18,6 +18,11 @@
 //SOIL2
 #include "SOIL2/SOIL2.h"
 
+//glm
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+
 //Shaders
 #include "Shader.h"
 
@@ -153,6 +158,14 @@ int main () {
         //draw object
         //indicate which shader program to use
         myShader.use();
+        
+        //create transformation
+        glm::mat4 transfrom;
+        transfrom = glm::translate(transfrom, glm::vec3(0.5f, -0.5f, 0.0f));
+        transfrom = glm::rotate(transfrom, (GLfloat) glfwGetTime() * 10.0f, glm::vec3(0.0f, 0.0f, 1.0f));
+        
+        GLint transfromLocation = glGetUniformLocation(myShader.Program, "transform");
+        glUniformMatrix4fv(transfromLocation, 1, GL_FALSE, glm::value_ptr(transfrom));
         
         //bind and set textures
         glActiveTexture(GL_TEXTURE0);

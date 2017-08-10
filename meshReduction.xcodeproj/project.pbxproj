@@ -121,8 +121,9 @@
 				9AD5E04C1F3C8A0100E57071 /* stbi_pvr.h */,
 				9AD5E04D1F3C8A0100E57071 /* stbi_pvr_c.h */,
 			);
-			path = SOIL2;
-			sourceTree = "<group>";
+			name = SOIL2;
+			path = tools/SOIL2;
+			sourceTree = SOURCE_ROOT;
 		};
 		9AD5E0551F3C92D700E57071 /* res */ = {
 			isa = PBXGroup;
