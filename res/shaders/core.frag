@@ -1,6 +1,6 @@
 #version 330 core
 
-in vec3 ourColor;
+//in vec3 ourColor;
 in vec2 ourTex;
 
 out vec4 color;
