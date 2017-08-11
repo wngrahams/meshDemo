@@ -1,2 +1,2 @@
 # meshDemo
-A mesh reduction demo using C++ and OpenGL
+A C++ mesh reduction demo using OpenGL and GLFW
