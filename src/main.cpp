@@ -46,6 +46,9 @@ bool firstMouse = true;
 GLfloat deltaTime = 0.0f;
 GLfloat lastFrame = 0.0f;
 
+//light attributes
+glm::vec3 lightPos(1.2f, 1.0f, 2.0f);
+
 int main () {
     
     //Initialize GLFW
@@ -98,116 +101,133 @@ int main () {
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     
     //build and compile shader program
-    Shader myShader("res/shaders/core.vs", "res/shaders/core.frag");
+    Shader lightingShader("res/shaders/lighting.vs", "res/shaders/lighting.frag");
+    Shader lampShader("res/shaders/lamp.vs", "res/shaders/lamp.frag");
     
     //create vertex data for drawing
     GLfloat vertices[] = {
-        -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,           //each group corresponds to a face
-        0.5f, -0.5f, -0.5f,  1.0f, 0.0f,            //first three vals on each row are vertex positions
-        0.5f,  0.5f, -0.5f,  1.0f, 1.0f,            //last two are normalized texture coordinates
-        0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-        -0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
-        -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
+        -0.5f, -0.5f, -0.5f,            //each group corresponds to a face
+        0.5f, -0.5f, -0.5f,             //first three vals on each row are vertex positions
+        0.5f,  0.5f, -0.5f,             //last two are normalized texture coordinates
+        0.5f,  0.5f, -0.5f,  
+        -0.5f,  0.5f, -0.5f, 
+        -0.5f, -0.5f, -0.5f, 
         
-        -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-        0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-        0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
-        0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
-        -0.5f,  0.5f,  0.5f,  0.0f, 1.0f,
-        -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+        -0.5f, -0.5f,  0.5f, 
+        0.5f, -0.5f,  0.5f,  
+        0.5f,  0.5f,  0.5f,  
+        0.5f,  0.5f,  0.5f,  
+        -0.5f,  0.5f,  0.5f, 
+        -0.5f, -0.5f,  0.5f, 
         
-        -0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-        -0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-        -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-        -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-        -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-        -0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+        -0.5f,  0.5f,  0.5f, 
+        -0.5f,  0.5f, -0.5f, 
+        -0.5f, -0.5f, -0.5f, 
+        -0.5f, -0.5f, -0.5f, 
+        -0.5f, -0.5f,  0.5f, 
+        -0.5f,  0.5f,  0.5f, 
         
-        0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-        0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-        0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-        0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-        0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-        0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+        0.5f,  0.5f,  0.5f,  
+        0.5f,  0.5f, -0.5f,  
+        0.5f, -0.5f, -0.5f,  
+        0.5f, -0.5f, -0.5f,  
+        0.5f, -0.5f,  0.5f,  
+        0.5f,  0.5f,  0.5f,  
         
-        -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-        0.5f, -0.5f, -0.5f,  1.0f, 1.0f,
-        0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-        0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-        -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-        -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+        -0.5f, -0.5f, -0.5f, 
+        0.5f, -0.5f, -0.5f,  
+        0.5f, -0.5f,  0.5f,  
+        0.5f, -0.5f,  0.5f,  
+        -0.5f, -0.5f,  0.5f, 
+        -0.5f, -0.5f, -0.5f, 
         
-        -0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
-        0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-        0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-        0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-        -0.5f,  0.5f,  0.5f,  0.0f, 0.0f,
-        -0.5f,  0.5f, -0.5f,  0.0f, 1.0f
+        -0.5f,  0.5f, -0.5f, 
+        0.5f,  0.5f, -0.5f,  
+        0.5f,  0.5f,  0.5f,  
+        0.5f,  0.5f,  0.5f,  
+        -0.5f,  0.5f,  0.5f, 
+        -0.5f,  0.5f, -0.5f
     };
     
-    glm::vec3 cubePositions[] = {
-        glm::vec3(0.0f, 0.0f, 0.0f),
-        glm::vec3(2.0f, 5.0f, -15.0f),
-        glm::vec3(-1.5f, -2.2f, -2.5f),
-        glm::vec3(-3.8f, -2.0f, -12.3f),
-        glm::vec3(2.4f, -0.4f, -3.5f),
-        glm::vec3(-1.7f, 3.0f, -7.5f),
-        glm::vec3(1.3f, -2.0f, -2.5f),
-        glm::vec3(1.5f, 2.0f, -2.5f),
-        glm::vec3(1.5f, 0.2f, -1.5f),
-        glm::vec3(-1.3f, 1.0f, -1.5f),
-
-    };
+//    glm::vec3 cubePositions[] = {
+//        glm::vec3(0.0f, 0.0f, 0.0f),
+//        glm::vec3(2.0f, 5.0f, -15.0f),
+//        glm::vec3(-1.5f, -2.2f, -2.5f),
+//        glm::vec3(-3.8f, -2.0f, -12.3f),
+//        glm::vec3(2.4f, -0.4f, -3.5f),
+//        glm::vec3(-1.7f, 3.0f, -7.5f),
+//        glm::vec3(1.3f, -2.0f, -2.5f),
+//        glm::vec3(1.5f, 2.0f, -2.5f),
+//        glm::vec3(1.5f, 0.2f, -1.5f),
+//        glm::vec3(-1.3f, 1.0f, -1.5f),
+//
+//    };
     
     //create vertex buffer object (VBO) and vertex array object (VAO) and element buffer object (EBO)
-    GLuint VBO, VAO;
-    glGenVertexArrays(1, &VAO);
+    GLuint VBO, boxVAO;
+    glGenVertexArrays(1, &boxVAO);
     glGenBuffers(1, &VBO);
     
     //bind VAO
-    glBindVertexArray(VAO);
+    glBindVertexArray(boxVAO);
     
     //bind and set VBO
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
     
     //create vertex position attirbute               //number of info for each line
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid *) 0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (GLvoid *) 0);
     glEnableVertexAttribArray(0);
-    
-    //texture coordinate attribute
-    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid *)(3*sizeof(GLfloat)));
-    glEnableVertexAttribArray(2);
     
     //unbind VAO
     glBindVertexArray(0);
     
-    //load textures
-    GLuint texture;
+    GLuint lightVAO;
+    glGenVertexArrays(1, &lightVAO);
+    glGenBuffers(1, &VBO);
     
-    int width, height;
-    glGenTextures(1, &texture);
+    //bind VAO
+    glBindVertexArray(lightVAO);
     
-    //bind texture using 2d textures
-    glBindTexture(GL_TEXTURE_2D, texture);
+    //bind and set VBO
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
     
-    //set texture parameters
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    //create vertex position attirbute               //number of info for each line
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (GLvoid *) 0);
+    glEnableVertexAttribArray(0);
     
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    //unbind VAO
+    glBindVertexArray(0);
     
-    //load & create texture and generate mitmaps
-    unsigned char *image = SOIL_load_image("res/images/Image1.jpg", &width, &height, 0, SOIL_LOAD_RGBA);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
-    glGenerateMipmap(GL_TEXTURE_2D);
+//    //load textures
+//    GLuint texture;
+//    
+//    int width, height;
+//    glGenTextures(1, &texture);
+//    
+//    //bind texture using 2d textures
+//    glBindTexture(GL_TEXTURE_2D, texture);
+//    
+//    //set texture parameters
+//    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+//    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+//    
+//    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+//    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+//    
+//    //load & create texture and generate mitmaps
+//    unsigned char *image = SOIL_load_image("res/images/Image1.jpg", &width, &height, 0, SOIL_LOAD_RGBA);
+//    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
+//    glGenerateMipmap(GL_TEXTURE_2D);
+//    
+//    //free image data
+//    SOIL_free_image_data(image);
+//    
+//    //unbind texture
+//    glBindTexture(GL_TEXTURE_2D, 0);
     
-    //free image data
-    SOIL_free_image_data(image);
-    
-    //unbind texture
-    glBindTexture(GL_TEXTURE_2D, 0);
+    glm::mat4 projection = glm::perspective(camera.getZoom(), (GLfloat) SCREEN_WIDTH/ (GLfloat) SCREEN_HEIGHT, camera.getNearClippingPlane(), camera.getFarCLippingPlane());
     
     //draw loop
     while (!glfwWindowShouldClose(window)) {
@@ -223,60 +243,105 @@ int main () {
         
         //render
         //clear the colorbuffer
-        glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+        glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
         
         //clear depth buffer
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         
-        //bind and set textures
-        glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, texture);
-        glUniform1i(glGetUniformLocation(myShader.Program, "ourTexture"), 0);
+//        //bind and set textures
+//        glActiveTexture(GL_TEXTURE0);
+//        glBindTexture(GL_TEXTURE_2D, texture);
+//        glUniform1i(glGetUniformLocation(myShader.Program, "ourTexture"), 0);
+//        
+//        //indicate which shader program to use
+//        myShader.use();
+//        
+//        //create view frustrum
+//        //fov  //aspect ratio                               //near,far clipping
+//        glm::mat4 projection = glm::perspective(camera.getZoom(), (GLfloat) SCREEN_WIDTH/ (GLfloat) SCREEN_HEIGHT, camera.getNearClippingPlane(), camera.getFarCLippingPlane());
+//        //TODO: put near and far clipping in camera class
+//        
+//        //add rotation and translation matrix
+//        glm::mat4 model;
+//        glm::mat4 view;
+//        view = camera.getViewMatrix();
+//        //model = glm::rotate(model, (GLfloat) glfwGetTime() * 1.0f, glm::vec3(0.5f, 1.0f, 0.0f));
+//        
+//        GLint modelLoc = glGetUniformLocation(myShader.Program, "model");
+//        GLint viewLoc = glGetUniformLocation(myShader.Program, "view");
+//        GLint projLoc = glGetUniformLocation(myShader.Program, "projection");
+//        
+//        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+//        glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
+//        glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
+//
+//        //draw object
+//        glBindVertexArray(VAO);
+//
+//        for (GLuint i=0; i<10; i++) {
+//            glm::mat4 model;
+//            model = glm::translate(model, cubePositions[i]);
+//            GLfloat angle = 20.0f * i;
+//            model = glm::rotate(model, angle, glm::vec3(1.0f, 0.3f, 0.5f));
+//            glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+//            
+//            glDrawArrays(GL_TRIANGLES, 0, 36); //36 because 2 triangles per face, 6 faces in total, 3 vertices per triangle
+//        }
+//        
+//        glBindVertexArray(0);
         
-        //indicate which shader program to use
-        myShader.use();
+        lightingShader.use();
+        GLint objectColorLoc = glGetUniformLocation( lightingShader.Program, "objectColor");
+        GLint lightColorLoc = glGetUniformLocation( lightingShader.Program, "lightColor");
+        glUniform3f(objectColorLoc, 0.5f, 0.5f, 0.31f);
+        glUniform3f(lightColorLoc, 1.0f, 0.5f, 1.0f);
         
-        //create view frustrum
-        //fov  //aspect ratio                               //near,far clipping
-        glm::mat4 projection = glm::perspective(camera.getZoom(), (GLfloat) SCREEN_WIDTH/ (GLfloat) SCREEN_HEIGHT, camera.getNearClippingPlane(), camera.getFarCLippingPlane());
-        //TODO: put near and far clipping in camera class
-        
-        //add rotation and translation matrix
-        glm::mat4 model;
         glm::mat4 view;
         view = camera.getViewMatrix();
-        //model = glm::rotate(model, (GLfloat) glfwGetTime() * 1.0f, glm::vec3(0.5f, 1.0f, 0.0f));
         
-        GLint modelLoc = glGetUniformLocation(myShader.Program, "model");
-        GLint viewLoc = glGetUniformLocation(myShader.Program, "view");
-        GLint projLoc = glGetUniformLocation(myShader.Program, "projection");
+        GLint modelLoc = glGetUniformLocation(lightingShader.Program, "model");
+        GLint viewLoc = glGetUniformLocation(lightingShader.Program, "view");
+        GLint projLoc = glGetUniformLocation(lightingShader.Program, "projection");
         
-        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
         glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
         glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
-
-        //draw object
-        glBindVertexArray(VAO);
-
-        for (GLuint i=0; i<10; i++) {
-            glm::mat4 model;
-            model = glm::translate(model, cubePositions[i]);
-            GLfloat angle = 20.0f * i;
-            model = glm::rotate(model, angle, glm::vec3(1.0f, 0.3f, 0.5f));
-            glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-            
-            glDrawArrays(GL_TRIANGLES, 0, 36); //36 because 2 triangles per face, 6 faces in total, 3 vertices per triangle
-        }
+        
+        //draw container
+        glBindVertexArray(boxVAO);
+        glm::mat4 model;
+        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+        glDrawArrays(GL_TRIANGLES, 0, 36);
         
         glBindVertexArray(0);
+
         
+        lampShader.use();
+        
+        modelLoc = glGetUniformLocation(lampShader.Program, "model");
+        viewLoc = glGetUniformLocation(lampShader.Program, "view");
+        projLoc = glGetUniformLocation(lampShader.Program, "projection");
+        
+        glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
+        glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
+        
+        //draw container
+        model = glm::mat4();
+        model = glm::translate(model, lightPos);
+        model = glm::scale(model, glm::vec3(0.2f));
+        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+        
+        glBindVertexArray(lightVAO);
+        glDrawArrays(GL_TRIANGLES, 0, 36);
+        glBindVertexArray(0);
+
         //swap sceen buffers
         glfwSwapBuffers(window);
     }
     
     //Deallocate resources
-    glDeleteVertexArrays(1, &VAO);
+    glDeleteVertexArrays(1, &boxVAO);
+    glDeleteVertexArrays(1, &lightVAO);
     glDeleteBuffers(1, &VBO);
     
     //Terminate GLFW and clear any resources allocated by GLFW
