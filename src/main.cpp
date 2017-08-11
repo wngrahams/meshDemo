@@ -26,7 +26,25 @@
 //Shaders
 #include "Shader.h"
 
+//Camera
+#include "Camera.h"
+
 const GLint WIDTH = 800, HEIGHT = 600; //screen dimensions
+int SCREEN_WIDTH, SCREEN_HEIGHT; //required for mac due to retina display
+
+void keyCallback (GLFWwindow *window, int key, int scancode, int action, int mode);
+void scrollCallback (GLFWwindow *window, double xOffset, double yOffset);
+void mouseCallback (GLFWwindow *window, double xPos, double yPos);
+void doMovement ();
+
+Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
+GLfloat lastX = WIDTH/2.0f;
+GLfloat lastY = WIDTH/2.0f;
+bool keys[1024];
+bool firstMouse = true;
+
+GLfloat deltaTime = 0.0f;
+GLfloat lastFrame = 0.0f;
 
 int main () {
     
@@ -42,9 +60,7 @@ int main () {
     
     GLFWwindow *window = glfwCreateWindow(WIDTH, HEIGHT, "Mesh Reduction Demo", nullptr, nullptr);
     
-    int screenWidth, screenHeight; //required for mac due to retina display
-    glfwGetFramebufferSize(window, &screenWidth, &screenHeight); //required for mac due to retina display
-//    std::cout << "screenWidth: " << screenWidth << ", screenHeight: " << screenHeight << std::endl;
+    glfwGetFramebufferSize(window, &SCREEN_WIDTH, &SCREEN_HEIGHT); //required for mac due to retina display
     
     if (nullptr == window) {
         std::cout << "Failed to creat GLFW window!\n";
@@ -54,6 +70,13 @@ int main () {
     }
     
     glfwMakeContextCurrent(window);
+    
+    //set callbacks
+    glfwSetKeyCallback(window, keyCallback);
+    glfwSetCursorPosCallback(window, mouseCallback);
+    glfwSetScrollCallback(window, scrollCallback);
+    
+    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
     
     glewExperimental = GL_TRUE; //fixes glew bug
     
@@ -65,7 +88,7 @@ int main () {
     }
     
     //define viewport dimensions
-    glViewport(0, 0, screenWidth, screenHeight);
+    glViewport(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
     
     //enable depth
     glEnable(GL_DEPTH_TEST);
@@ -74,58 +97,10 @@ int main () {
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     
+    //build and compile shader program
     Shader myShader("res/shaders/core.vs", "res/shaders/core.frag");
     
     //create vertex data for drawing
-    // Set up vertex data (and buffer(s)) and attribute pointers
-    // use with Orthographic Projection
-    
-//     GLfloat vertices[] = {
-//     -0.5f * 500, -0.5f * 500, -0.5f * 500,  0.0f, 0.0f,
-//     0.5f * 500, -0.5f * 500, -0.5f * 500,  1.0f, 0.0f,
-//     0.5f * 500,  0.5f * 500, -0.5f * 500,  1.0f, 1.0f,
-//     0.5f * 500,  0.5f * 500, -0.5f * 500,  1.0f, 1.0f,
-//     -0.5f * 500,  0.5f * 500, -0.5f * 500,  0.0f, 1.0f,
-//     -0.5f * 500, -0.5f * 500, -0.5f * 500,  0.0f, 0.0f,
-//     
-//     -0.5f * 500, -0.5f * 500,  0.5f * 500,  0.0f, 0.0f,
-//     0.5f * 500, -0.5f * 500,  0.5f * 500,  1.0f, 0.0f,
-//     0.5f * 500,  0.5f * 500,  0.5f * 500,  1.0f, 1.0f,
-//     0.5f * 500,  0.5f * 500,  0.5f * 500,  1.0f, 1.0f,
-//     -0.5f * 500,  0.5f * 500,  0.5f * 500,  0.0f, 1.0f,
-//     -0.5f * 500, -0.5f * 500,  0.5f * 500,  0.0f, 0.0f,
-//     
-//     -0.5f * 500,  0.5f * 500,  0.5f * 500,  1.0f, 0.0f,
-//     -0.5f * 500,  0.5f * 500, -0.5f * 500,  1.0f, 1.0f,
-//     -0.5f * 500, -0.5f * 500, -0.5f * 500,  0.0f, 1.0f,
-//     -0.5f * 500, -0.5f * 500, -0.5f * 500,  0.0f, 1.0f,
-//     -0.5f * 500, -0.5f * 500,  0.5f * 500,  0.0f, 0.0f,
-//     -0.5f * 500,  0.5f * 500,  0.5f * 500,  1.0f, 0.0f,
-//     
-//     0.5f * 500,  0.5f * 500,  0.5f * 500,  1.0f, 0.0f,
-//     0.5f * 500,  0.5f * 500, -0.5f * 500,  1.0f, 1.0f,
-//     0.5f * 500, -0.5f * 500, -0.5f * 500,  0.0f, 1.0f,
-//     0.5f * 500, -0.5f * 500, -0.5f * 500,  0.0f, 1.0f,
-//     0.5f * 500, -0.5f * 500,  0.5f * 500,  0.0f, 0.0f,
-//     0.5f * 500,  0.5f * 500,  0.5f * 500,  1.0f, 0.0f,
-//     
-//     -0.5f * 500, -0.5f * 500, -0.5f * 500,  0.0f, 1.0f,
-//     0.5f * 500, -0.5f * 500, -0.5f * 500,  1.0f, 1.0f,
-//     0.5f * 500, -0.5f * 500,  0.5f * 500,  1.0f, 0.0f,
-//     0.5f * 500, -0.5f * 500,  0.5f * 500,  1.0f, 0.0f,
-//     -0.5f * 500, -0.5f * 500,  0.5f * 500,  0.0f, 0.0f,
-//     -0.5f * 500, -0.5f * 500, -0.5f * 500,  0.0f, 1.0f,
-//     
-//     -0.5f * 500,  0.5f * 500, -0.5f * 500,  0.0f, 1.0f,
-//     0.5f * 500,  0.5f * 500, -0.5f * 500,  1.0f, 1.0f,
-//     0.5f * 500,  0.5f * 500,  0.5f * 500,  1.0f, 0.0f,
-//     0.5f * 500,  0.5f * 500,  0.5f * 500,  1.0f, 0.0f,
-//     -0.5f * 500,  0.5f * 500,  0.5f * 500,  0.0f, 0.0f,
-//     -0.5f * 500,  0.5f * 500, -0.5f * 500,  0.0f, 1.0f
-//     };
-    
-    
-    // use with Perspective Projection
     GLfloat vertices[] = {
         -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,           //each group corresponds to a face
         0.5f, -0.5f, -0.5f,  1.0f, 0.0f,            //first three vals on each row are vertex positions
@@ -168,6 +143,20 @@ int main () {
         0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
         -0.5f,  0.5f,  0.5f,  0.0f, 0.0f,
         -0.5f,  0.5f, -0.5f,  0.0f, 1.0f
+    };
+    
+    glm::vec3 cubePositions[] = {
+        glm::vec3(0.0f, 0.0f, 0.0f),
+        glm::vec3(2.0f, 5.0f, -15.0f),
+        glm::vec3(-1.5f, -2.2f, -2.5f),
+        glm::vec3(-3.8f, -2.0f, -12.3f),
+        glm::vec3(2.4f, -0.4f, -3.5f),
+        glm::vec3(-1.7f, 3.0f, -7.5f),
+        glm::vec3(1.3f, -2.0f, -2.5f),
+        glm::vec3(1.5f, 2.0f, -2.5f),
+        glm::vec3(1.5f, 0.2f, -1.5f),
+        glm::vec3(-1.3f, 1.0f, -1.5f),
+
     };
     
     //create vertex buffer object (VBO) and vertex array object (VAO) and element buffer object (EBO)
@@ -220,15 +209,17 @@ int main () {
     //unbind texture
     glBindTexture(GL_TEXTURE_2D, 0);
     
-    glm::mat4 projection; //projection type
-    //create view frustrum
-                                  //fov  //aspect ratio                               //near,far clipping
-    projection = glm::perspective(45.0f, (GLfloat) screenWidth/ (GLfloat) screenHeight, 0.1f, 1000.0f);
-//    projection = glm::ortho(0.0f, (GLfloat) screenWidth, 0.0f, (GLfloat) screenHeight, 0.1f, 1000.0f);
-    
+    //draw loop
     while (!glfwWindowShouldClose(window)) {
+        
+        //detect time between frames
+        GLfloat currentFrame = glfwGetTime();
+        deltaTime = currentFrame - lastFrame;
+        lastFrame = currentFrame;
+        
         //check if any events were acitivated
         glfwPollEvents();
+        doMovement();
         
         //render
         //clear the colorbuffer
@@ -246,13 +237,16 @@ int main () {
         //indicate which shader program to use
         myShader.use();
         
+        //create view frustrum
+        //fov  //aspect ratio                               //near,far clipping
+        glm::mat4 projection = glm::perspective(camera.getZoom(), (GLfloat) SCREEN_WIDTH/ (GLfloat) SCREEN_HEIGHT, 0.1f, 1000.0f);
+        //TODO: put near and far clipping in camera class
+        
         //add rotation and translation matrix
         glm::mat4 model;
         glm::mat4 view;
-        model = glm::rotate(model, (GLfloat) glfwGetTime() * 1.0f, glm::vec3(0.5f, 1.0f, 0.0f));
-        view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
-//        model = glm::rotate(model, 0.5f, glm::vec3(1.0f, 0.0f, 0.0f));
-//        view = glm::translate(view, glm::vec3(screenWidth/2, screenHeight/2, -700.0f));
+        view = camera.getViewMatrix();
+        //model = glm::rotate(model, (GLfloat) glfwGetTime() * 1.0f, glm::vec3(0.5f, 1.0f, 0.0f));
         
         GLint modelLoc = glGetUniformLocation(myShader.Program, "model");
         GLint viewLoc = glGetUniformLocation(myShader.Program, "view");
@@ -264,7 +258,16 @@ int main () {
 
         //draw object
         glBindVertexArray(VAO);
-        glDrawArrays(GL_TRIANGLES, 0, 36); //36 because 2 triangles per face, 6 faces in total, 3 vertices per triangle
+
+        for (GLuint i=0; i<10; i++) {
+            glm::mat4 model;
+            model = glm::translate(model, cubePositions[i]);
+            GLfloat angle = 20.0f * i;
+            model = glm::rotate(model, angle, glm::vec3(1.0f, 0.3f, 0.5f));
+            glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+            
+            glDrawArrays(GL_TRIANGLES, 0, 36); //36 because 2 triangles per face, 6 faces in total, 3 vertices per triangle
+        }
         
         glBindVertexArray(0);
         
@@ -297,6 +300,56 @@ int main () {
     return EXIT_SUCCESS;
         
 }
+
+void doMovement () {
+    if (keys[GLFW_KEY_W] || keys[GLFW_KEY_UP])
+        camera.processKeyboard(FORWARD, deltaTime);
+    
+    if (keys[GLFW_KEY_S] || keys[GLFW_KEY_DOWN])
+        camera.processKeyboard(BACKWARD, deltaTime);
+    
+    if (keys[GLFW_KEY_A] || keys[GLFW_KEY_LEFT])
+        camera.processKeyboard(LEFT, deltaTime);
+    
+    if (keys[GLFW_KEY_D] || keys[GLFW_KEY_RIGHT])
+        camera.processKeyboard(RIGHT, deltaTime);
+
+}
+
+void keyCallback (GLFWwindow *window, int key, int scancode, int action, int mode) {
+    if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
+        glfwSetWindowShouldClose(window, GL_TRUE);
+    
+    if( key >= 0 && key < 1024) {
+        if (action == GLFW_PRESS)
+            keys[key] = true;
+        else if (action == GLFW_RELEASE)
+            keys[key] = false;
+    }
+}
+
+void mouseCallback (GLFWwindow *window, double xPos, double yPos) {
+    if (firstMouse) {
+        lastX = xPos;
+        lastY = yPos;
+        firstMouse = false;
+    }
+    
+    GLfloat xOffset = xPos - lastX;
+    GLfloat yOffset = lastY - yPos;
+    
+    lastX = xPos;
+    lastY = yPos;
+    
+    camera.processMouseMovement(xOffset, yOffset);
+}
+
+void scrollCallback (GLFWwindow *window, double xOffset, double yOffset) {
+    camera.processMouseScroll(yOffset);
+}
+
+
+
 
 
 

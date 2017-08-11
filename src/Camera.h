@@ -8,9 +8,6 @@
 
 //#ifndef meshReduction_Camera_h
 //#define meshReduction_Camera_h
-//
-//
-//#endif
 
 #pragma once
 
@@ -55,8 +52,8 @@ private:
     
     void updateCameraVectors() {
         glm::vec3 front;
-        front.x = cos(glm::radians(this->ya)) * cos(glm::radians(this->pitch));
-        front.y = sin(glm::radians(this-pitch));
+        front.x = cos(glm::radians(this->yaw)) * cos(glm::radians(this->pitch));
+        front.y = sin(glm::radians(this->pitch));
         front.z = sin(glm::radians(this->yaw)) * cos(glm::radians(this->pitch));
         
         this->front = glm::normalize(front);
@@ -77,7 +74,7 @@ public:
     }
     
     //constructor taking float values
-    Camera(GLfloat posX, GLfloat posY, GLfloat posZ, GLfLoat upX, GLfloat upY, GLfloat upZ, GLfloat yaw, GLFLoat pitch): front (glm::vec3(0.0f, 0.0f, -1.0f)), movementSpeed(SPEED), mouseSensitivity(SENSITIVITY), zoom(ZOOM) {
+    Camera(GLfloat posX, GLfloat posY, GLfloat posZ, GLfloat upX, GLfloat upY, GLfloat upZ, GLfloat yaw, GLfloat pitch): front (glm::vec3(0.0f, 0.0f, -1.0f)), movementSpeed(SPEED), mouseSensitivity(SENSITIVITY), zoom(ZOOM) {
         
         this->position = glm::vec3(posX, posY, posZ);
         this->worldUp = glm::vec3(upX, upY, upZ);
@@ -147,7 +144,6 @@ public:
         return this->zoom;
     }
 };
-
 
 
 
