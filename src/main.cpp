@@ -294,7 +294,7 @@ int main () {
         lightingShader.use();
         GLint objectColorLoc = glGetUniformLocation( lightingShader.Program, "objectColor");
         GLint lightColorLoc = glGetUniformLocation( lightingShader.Program, "lightColor");
-        glUniform3f(objectColorLoc, 0.5f, 0.5f, 0.31f);
+        glUniform3f(objectColorLoc, 1.0f, 0.5f, 0.31f);
         glUniform3f(lightColorLoc, 1.0f, 0.5f, 1.0f);
         
         glm::mat4 view;
