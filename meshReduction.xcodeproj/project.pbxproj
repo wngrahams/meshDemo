@@ -67,6 +67,7 @@
 		9AD5E04D1F3C8A0100E57071 /* stbi_pvr_c.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stbi_pvr_c.h; sourceTree = "<group>"; };
 		9AD5E0561F3C930100E57071 /* shaders */ = {isa = PBXFileReference; lastKnownFileType = folder; name = shaders; path = res/shaders; sourceTree = SOURCE_ROOT; };
 		9AD5E0581F3C931900E57071 /* images */ = {isa = PBXFileReference; lastKnownFileType = folder; name = images; path = res/images; sourceTree = SOURCE_ROOT; };
+		9AD5E05B1F3DD0F400E57071 /* Camera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Camera.h; sourceTree = "<group>"; };
 		9AD867381F3A713200C2168B /* meshReduction */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = meshReduction; sourceTree = BUILT_PRODUCTS_DIR; };
 		9AD8673B1F3A713200C2168B /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; usesTabs = 0; };
 		9AD867421F3A726E00C2168B /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
@@ -160,6 +161,7 @@
 			children = (
 				9AD8673B1F3A713200C2168B /* main.cpp */,
 				9A6821321F3C6DA00047F520 /* Shader.h */,
+				9AD5E05B1F3DD0F400E57071 /* Camera.h */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
