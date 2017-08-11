@@ -239,7 +239,7 @@ int main () {
         
         //create view frustrum
         //fov  //aspect ratio                               //near,far clipping
-        glm::mat4 projection = glm::perspective(camera.getZoom(), (GLfloat) SCREEN_WIDTH/ (GLfloat) SCREEN_HEIGHT, 0.1f, 1000.0f);
+        glm::mat4 projection = glm::perspective(camera.getZoom(), (GLfloat) SCREEN_WIDTH/ (GLfloat) SCREEN_HEIGHT, camera.getNearClippingPlane(), camera.getFarCLippingPlane());
         //TODO: put near and far clipping in camera class
         
         //add rotation and translation matrix
@@ -270,21 +270,6 @@ int main () {
         }
         
         glBindVertexArray(0);
-        
-//        //create transformation
-//        glm::mat4 transfrom;
-//        transfrom = glm::translate(transfrom, glm::vec3(0.5f, -0.5f, 0.0f));
-//        transfrom = glm::rotate(transfrom, (GLfloat) glfwGetTime() * 8.0f, glm::vec3(0.0f, 0.0f, 1.0f));
-//        
-//        GLint transfromLocation = glGetUniformLocation(myShader.Program, "transform");
-//        glUniformMatrix4fv(transfromLocation, 1, GL_FALSE, glm::value_ptr(transfrom));
-        
-        
-        
-        
-//        glBindVertexArray(VAO);
-//        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-//        glBindVertexArray(0);
         
         //swap sceen buffers
         glfwSwapBuffers(window);

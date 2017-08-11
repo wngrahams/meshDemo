@@ -32,6 +32,8 @@ const GLfloat PITCH = 0.0f;
 const GLfloat SPEED = 6.0f;
 const GLfloat SENSITIVITY = 0.25f;
 const GLfloat ZOOM = 45.0f; //fov
+const GLfloat CLIPPING_PLANE_NEAR = 1.0f;
+const GLfloat CLIPPING_PLANE_FAR = 1000.0f;
 
 class Camera {
     
@@ -49,6 +51,9 @@ private:
     GLfloat movementSpeed;
     GLfloat mouseSensitivity;
     GLfloat zoom;
+    
+    GLfloat nearClipping = CLIPPING_PLANE_NEAR;
+    GLfloat farClipping = CLIPPING_PLANE_FAR;
     
     void updateCameraVectors() {
         glm::vec3 front;
@@ -130,8 +135,8 @@ public:
     //process scroll input from mouse
     void processMouseScroll(GLfloat yOffset) {
         
-        if (this->zoom >= 1.0f && this-> zoom <= 45.0f)
-            this->zoom -= yOffset;
+        if (this->zoom >= 1.0f && this->zoom <= 45.0f)
+            this->zoom += yOffset;
         
         if (this->zoom <= 1.0f)
             this->zoom = 1.0f;
@@ -142,6 +147,14 @@ public:
     
     GLfloat getZoom() {
         return this->zoom;
+    }
+    
+    GLfloat getNearClippingPlane () {
+        return this->nearClipping;
+    }
+    
+    GLfloat getFarCLippingPlane () {
+        return this->farClipping;
     }
 };
 
