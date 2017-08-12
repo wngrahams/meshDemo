@@ -156,6 +156,10 @@ public:
     GLfloat getFarCLippingPlane () {
         return this->farClipping;
     }
+    
+    glm::vec3 getPosition () {
+        return this->position;
+    }
 };
 
 
