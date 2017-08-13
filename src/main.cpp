@@ -108,7 +108,7 @@ int main () {
     
     //build and compile shader program
     Shader lightingShader("res/shaders/lighting.vs", "res/shaders/lighting.frag");
-    Shader lampShader("res/shaders/lamp.vs", "res/shaders/lamp.frag");
+//    Shader lampShader("res/shaders/lamp.vs", "res/shaders/lamp.frag");
     
     
     //create vertex data for drawing
@@ -157,6 +157,20 @@ int main () {
         -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,   0.0f, 1.0f
     };
     
+    //Positions of multiple cubes:
+    glm::vec3 cubePositions[] = {
+        glm::vec3(0.0f, 0.0f, 0.0f),
+        glm::vec3(2.0f, 5.0f, -15.0f),
+        glm::vec3(-1.5f, -2.2f, -2.5f),
+        glm::vec3(-3.8, -2.0f, -12.3f),
+        glm::vec3(2.4f, -0.4f, -4.4f),
+        glm::vec3(-1.8f, 3.0f, -8.5f),
+        glm::vec3(1.3f, -2.0f, -2.3f),
+        glm::vec3(1.5f, 2.0f, -2.4f),
+        glm::vec3(1.5f, 0.2f, -1.4f),
+        glm::vec3(-1.4f, 1.0f, 0.0f)
+    };
+    
     //create vertex buffer object (VBO) and vertex array object (VAO) and element buffer object (EBO)
     GLuint VBO, boxVAO;
     glGenVertexArrays(1, &boxVAO);
@@ -194,7 +208,7 @@ int main () {
     
     //LIGHTING:
     
-    GLuint lightVAO;
+    /*GLuint lightVAO;
     glGenVertexArrays(1, &lightVAO);
     glGenBuffers(1, &VBO);
     
@@ -213,7 +227,7 @@ int main () {
     
     
     //unbind VAO
-    glBindVertexArray(0);
+    glBindVertexArray(0);*/
     
     
     //lighting maps:
@@ -288,9 +302,11 @@ int main () {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         
         lightingShader.use();
-        GLint lightPosLoc = glGetUniformLocation( lightingShader.Program, "light.position");
+//        GLint lightPosLoc = glGetUniformLocation( lightingShader.Program, "light.position");
+        GLint lightDirLoc = glGetUniformLocation(lightingShader.Program, "light.direction");
         GLint viewPosLoc = glGetUniformLocation( lightingShader.Program, "viewPos");
-        glUniform3f(lightPosLoc, lightPos.x, lightPos.y, lightPos.z);
+//        glUniform3f(lightPosLoc, lightPos.x, lightPos.y, lightPos.z);
+        glUniform3f(lightDirLoc, -0.2f, 1.0f, -0.3f);
         glUniform3f(viewPosLoc, camera.getPosition().x, camera.getPosition().y, camera.getPosition().z);
     
         
@@ -322,14 +338,29 @@ int main () {
         
         
         //draw container
-        glBindVertexArray(boxVAO);
+//        glBindVertexArray(boxVAO);
+//        glm::mat4 model;
+//        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+//        glDrawArrays(GL_TRIANGLES, 0, 36); //number of vertices
+//        
+//        glBindVertexArray(0);
+        
         glm::mat4 model;
-        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-        glDrawArrays(GL_TRIANGLES, 0, 36); //number of vertices
+        glBindVertexArray(boxVAO);
         
-        glBindVertexArray(0);
+        for (GLuint i=0; i<10; i++) {
+            model = glm::mat4 ();
+            model = glm::translate(model, cubePositions[i]);
+            
+            GLfloat angle = 20.0f * i;
+            model = glm::rotate(model, angle, glm::vec3(1.0f, 0.3f, 0.4f));
+            glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+            
+            glDrawArrays(GL_TRIANGLES, 0, 36);
+        }
+//        glBindVertexArray(0);
 
-        
+        /*
         lampShader.use();
         
         modelLoc = glGetUniformLocation(lampShader.Program, "model");
@@ -348,7 +379,7 @@ int main () {
         
         glBindVertexArray(lightVAO);
         glDrawArrays(GL_TRIANGLES, 0, 36); //num of vertices
-        glBindVertexArray(0);
+        glBindVertexArray(0); */
 
         //swap sceen buffers
         glfwSwapBuffers(window);
@@ -356,7 +387,7 @@ int main () {
     
     //Deallocate resources
     glDeleteVertexArrays(1, &boxVAO);
-    glDeleteVertexArrays(1, &lightVAO);
+//    glDeleteVertexArrays(1, &lightVAO);
     glDeleteBuffers(1, &VBO);
     
     
