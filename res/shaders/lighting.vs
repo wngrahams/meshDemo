@@ -1,6 +1,7 @@
 #version 330 core
 layout (location = 0) in vec3 position;
 layout (location = 1) in vec3 normal;
+layout (location = 2) in vec2 texCoords;
 
 out vec3 Normal;
 out vec3 FragPos;
@@ -9,7 +10,8 @@ out vec3 FragPos;
 //layout (location = 2) in vec2 texCoord;
 
 //out vec3 ourColor;
-//out vec2 ourTex;
+
+out vec2 TexCoords;
 
 uniform mat4 model;
 uniform mat4 view;
@@ -21,5 +23,5 @@ void main() {
     Normal = mat3(transpose(inverse(model))) * normal;
 //    ourColor = color;
     
-//    ourTex = vec2(texCoord.x, 1.0 - texCoord.y);
+    TexCoords = texCoords;
 }
