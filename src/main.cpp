@@ -263,8 +263,8 @@ int main () {
     while (!glfwWindowShouldClose(window)) {
         
         //light movement
-        lightPos.x -= 0.005f;
-        lightPos.z -= 0.005f;
+//        lightPos.x -= 0.005f;
+//        lightPos.z -= 0.005f;
         
         
         //detect time between frames
@@ -292,27 +292,11 @@ int main () {
         GLint viewPosLoc = glGetUniformLocation( lightingShader.Program, "viewPos");
         glUniform3f(lightPosLoc, lightPos.x, lightPos.y, lightPos.z);
         glUniform3f(viewPosLoc, camera.getPosition().x, camera.getPosition().y, camera.getPosition().z);
-        
-//        glm::vec3 lightColor;
-//        lightColor.r = sin(glfwGetTime() * 2.0f);
-//        lightColor.g = sin(glfwGetTime() * 0.7f);
-//        lightColor.b = sin(glfwGetTime() * 1.3f);
+    
         
         glUniform3f(glGetUniformLocation(lightingShader.Program, "light.ambient"), 0.2f, 0.2f, 0.2f);
         glUniform3f(glGetUniformLocation(lightingShader.Program, "light.diffuse"), 0.5f, 0.5f, 0.5f);
         glUniform3f(glGetUniformLocation(lightingShader.Program, "light.specular"), 1.0f, 1.0f, 1.0f);
-        
-//        glm::vec3 diffuseColor = lightColor * glm::vec3(0.5f);
-//        glm::vec3 ambientColor = diffuseColor * glm::vec3(0.2f);
-//        glUniform3f(glGetUniformLocation(lightingShader.Program, "light.ambient"), ambientColor.r, ambientColor.g, ambientColor.b);
-//        glUniform3f(glGetUniformLocation(lightingShader.Program, "light.diffuse"), diffuseColor.r, diffuseColor.g, diffuseColor.b);
-//        glUniform3f(glGetUniformLocation(lightingShader.Program, "light.specular"), 1.0f, 1.0f, 1.0f);
-//        
-//        //material properties:
-//        glUniform3f(glGetUniformLocation(lightingShader.Program, "material.ambient"), 1.0f, 0.5f, 0.31f);
-//        glUniform3f(glGetUniformLocation(lightingShader.Program, "material.diffuse"), 1.0f, 0.5f, 0.31f);
-//        glUniform3f(glGetUniformLocation(lightingShader.Program, "material.specular"), 0.5f, 0.5f, 0.5f);
-//        glUniform1f(glGetUniformLocation(lightingShader.Program, "material.shininess"), 32.0f);
         
         //material properties
         glUniform1f(glGetUniformLocation(lightingShader.Program, "material.shininess"), 32.0f);
