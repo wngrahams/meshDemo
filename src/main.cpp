@@ -263,8 +263,8 @@ int main () {
     while (!glfwWindowShouldClose(window)) {
         
         //light movement
-//        lightPos.x -= 0.005f;
-//        lightPos.z -= 0.005f;
+        lightPos.x -= 0.005f;
+        lightPos.z -= 0.005f;
         
         
         //detect time between frames
