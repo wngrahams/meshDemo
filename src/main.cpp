@@ -294,7 +294,8 @@ int main () {
         
         //render
         //clear the colorbuffer
-        glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
+        glClearColor(0.1f, 0.1f, 0.1f, 1.0f); //dark
+        //glClearColor(1.0f, 1.0f, 1.0f, 1.0f); //light
         glClear(GL_COLOR_BUFFER_BIT);
         
         
