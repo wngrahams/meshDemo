@@ -44,6 +44,7 @@
 
 /* Begin PBXFileReference section */
 		9A6821321F3C6DA00047F520 /* Shader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Shader.h; path = src/Shader.h; sourceTree = SOURCE_ROOT; };
+		9A782C5E1F477F40002C79AA /* Mesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Mesh.h; sourceTree = "<group>"; };
 		9AD5E0391F3C8A0100E57071 /* etc1_utils.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = etc1_utils.c; sourceTree = "<group>"; };
 		9AD5E03A1F3C8A0100E57071 /* etc1_utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = etc1_utils.h; sourceTree = "<group>"; };
 		9AD5E03B1F3C8A0100E57071 /* image_DXT.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = image_DXT.c; sourceTree = "<group>"; };
@@ -162,6 +163,7 @@
 				9AD8673B1F3A713200C2168B /* main.cpp */,
 				9A6821321F3C6DA00047F520 /* Shader.h */,
 				9AD5E05B1F3DD0F400E57071 /* Camera.h */,
+				9A782C5E1F477F40002C79AA /* Mesh.h */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
