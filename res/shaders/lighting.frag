@@ -3,7 +3,6 @@
 #define NUMBER_OF_POINT_LIGHTS 4
 
 struct Material {
-    
     sampler2D diffuse;
     sampler2D specular;
     float shininess;
@@ -56,6 +55,7 @@ uniform DirLight dirLight;
 uniform SpotLight spotLight;
 uniform PointLight pointLights[NUMBER_OF_POINT_LIGHTS];
 
+//prototypes
 vec3 calcDirLight(DirLight light, vec3 normal, vec3 viewDir);
 vec3 calcPointLight(PointLight light, vec3 normal, vec3 fragPos, vec3 viewDir);
 vec3 calcSpotLight(SpotLight light, vec3 normal, vec3 fragPos, vec3 viewDir);
@@ -72,41 +72,6 @@ void main() {
     result += calcSpotLight(spotLight, norm, FragPos, viewDir);
     
     color = vec4(result, 1.0f);
-    
-//    //ambient
-//    vec3 ambient = light.ambient * vec3(texture(material.diffuse, TexCoords));
-//    
-//    //diffuse
-//    vec3 norm = normalize(Normal);
-//    vec3 lightDir = normalize(light.position - FragPos);
-////    vec3 lightDir = normalize(-light.direction);
-//    float diff = max(dot(norm, lightDir), 0.0);
-//    vec3 diffuse = light.diffuse * diff * vec3(texture(material.diffuse, TexCoords));
-//    
-//    //specular
-//    vec3 viewDir = normalize(viewPos - FragPos);
-//    vec3 reflectDir = reflect(-lightDir, norm);
-//    float spec = pow(max(dot(viewDir, reflectDir), 0.0), material.shininess);
-//    vec3 specular = light.specular * spec * vec3(texture(material.specular, TexCoords));
-//    
-//    //spotlight
-//    float theta = dot(lightDir, normalize(-light.direction));
-//    float epsilon = (light.cutOff - light.outerCutOff);
-//    float intensity = clamp((theta-light.outerCutOff) / epsilon, 0.0, 1.0);
-//    diffuse *= intensity;
-//    specular *= intensity;
-//    
-//    //attenuation
-//    float distance = length(light.position - FragPos);
-//    float attenuation = 1.0f / (light.constant + light.linear * distance + light.quadratic * (distance * distance));
-//    
-//    ambient *= attenuation;
-//    diffuse *= attenuation;
-//    specular *= attenuation;
-//
-//    
-//    vec3 result = ambient + diffuse + specular;
-//    color = vec4(result, 1.0f);
 }
 
 vec3 calcDirLight(DirLight light, vec3 normal, vec3 viewDir) {
