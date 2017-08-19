@@ -46,6 +46,7 @@
 /* Begin PBXFileReference section */
 		9A4656B91F47964F00ED23C2 /* libassimp.4.0.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libassimp.4.0.1.dylib; path = ../../../../usr/local/Cellar/assimp/4.0.1/lib/libassimp.4.0.1.dylib; sourceTree = "<group>"; };
 		9A4656BB1F48A3B300ED23C2 /* models */ = {isa = PBXFileReference; lastKnownFileType = folder; path = models; sourceTree = "<group>"; };
+		9A4656BC1F48A66600ED23C2 /* Model.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Model.h; sourceTree = "<group>"; };
 		9A6821321F3C6DA00047F520 /* Shader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Shader.h; path = src/Shader.h; sourceTree = SOURCE_ROOT; };
 		9A782C5E1F477F40002C79AA /* Mesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Mesh.h; sourceTree = "<group>"; };
 		9AD5E0391F3C8A0100E57071 /* etc1_utils.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = etc1_utils.c; sourceTree = "<group>"; };
@@ -170,6 +171,7 @@
 				9A6821321F3C6DA00047F520 /* Shader.h */,
 				9AD5E05B1F3DD0F400E57071 /* Camera.h */,
 				9A782C5E1F477F40002C79AA /* Mesh.h */,
+				9A4656BC1F48A66600ED23C2 /* Model.h */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
