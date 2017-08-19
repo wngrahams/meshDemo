@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9A4656BA1F47964F00ED23C2 /* libassimp.4.0.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A4656B91F47964F00ED23C2 /* libassimp.4.0.1.dylib */; };
 		9AD5E04E1F3C8A0100E57071 /* etc1_utils.c in Sources */ = {isa = PBXBuildFile; fileRef = 9AD5E0391F3C8A0100E57071 /* etc1_utils.c */; };
 		9AD5E04F1F3C8A0100E57071 /* image_DXT.c in Sources */ = {isa = PBXBuildFile; fileRef = 9AD5E03B1F3C8A0100E57071 /* image_DXT.c */; };
 		9AD5E0501F3C8A0100E57071 /* image_helper.c in Sources */ = {isa = PBXBuildFile; fileRef = 9AD5E03D1F3C8A0100E57071 /* image_helper.c */; };
@@ -43,6 +44,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		9A4656B91F47964F00ED23C2 /* libassimp.4.0.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libassimp.4.0.1.dylib; path = ../../../../usr/local/Cellar/assimp/4.0.1/lib/libassimp.4.0.1.dylib; sourceTree = "<group>"; };
+		9A4656BB1F48A3B300ED23C2 /* models */ = {isa = PBXFileReference; lastKnownFileType = folder; path = models; sourceTree = "<group>"; };
 		9A6821321F3C6DA00047F520 /* Shader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Shader.h; path = src/Shader.h; sourceTree = SOURCE_ROOT; };
 		9A782C5E1F477F40002C79AA /* Mesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Mesh.h; sourceTree = "<group>"; };
 		9AD5E0391F3C8A0100E57071 /* etc1_utils.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = etc1_utils.c; sourceTree = "<group>"; };
@@ -81,6 +84,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9A4656BA1F47964F00ED23C2 /* libassimp.4.0.1.dylib in Frameworks */,
 				9AD867471F3A72E200C2168B /* libglfw.3.2.dylib in Frameworks */,
 				9AD867451F3A72C000C2168B /* libGLEW.2.1.0.dylib in Frameworks */,
 				9AD867431F3A726E00C2168B /* OpenGL.framework in Frameworks */,
@@ -131,6 +135,7 @@
 			isa = PBXGroup;
 			children = (
 				9AD5E0581F3C931900E57071 /* images */,
+				9A4656BB1F48A3B300ED23C2 /* models */,
 				9AD5E0561F3C930100E57071 /* shaders */,
 			);
 			path = res;
@@ -139,6 +144,7 @@
 		9AD8672F1F3A713200C2168B = {
 			isa = PBXGroup;
 			children = (
+				9A4656B91F47964F00ED23C2 /* libassimp.4.0.1.dylib */,
 				9AD5E0551F3C92D700E57071 /* res */,
 				9AD867461F3A72E200C2168B /* libglfw.3.2.dylib */,
 				9AD867441F3A72C000C2168B /* libGLEW.2.1.0.dylib */,
@@ -336,6 +342,7 @@
 					"$(inherited)",
 					/usr/local/Cellar/glew/2.1.0/lib,
 					/usr/local/Cellar/glfw/3.2.1/lib,
+					/usr/local/Cellar/assimp/4.0.1/lib,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				"USER_HEADER_SEARCH_PATHS[arch=*]" = "";
@@ -355,6 +362,7 @@
 					"$(inherited)",
 					/usr/local/Cellar/glew/2.1.0/lib,
 					/usr/local/Cellar/glfw/3.2.1/lib,
+					/usr/local/Cellar/assimp/4.0.1/lib,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
