@@ -166,16 +166,16 @@ int main () {
 }
 
 void doMovement () {
-    if (keys[GLFW_KEY_W] || keys[GLFW_KEY_UP])
+    if (keys[GLFW_KEY_W])
         camera.processKeyboard(FORWARD, deltaTime);
     
-    if (keys[GLFW_KEY_S] || keys[GLFW_KEY_DOWN])
+    if (keys[GLFW_KEY_S])
         camera.processKeyboard(BACKWARD, deltaTime);
     
-    if (keys[GLFW_KEY_A] || keys[GLFW_KEY_LEFT])
+    if (keys[GLFW_KEY_A])
         camera.processKeyboard(LEFT, deltaTime);
     
-    if (keys[GLFW_KEY_D] || keys[GLFW_KEY_RIGHT])
+    if (keys[GLFW_KEY_D])
         camera.processKeyboard(RIGHT, deltaTime);
 
 }

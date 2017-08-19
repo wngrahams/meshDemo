@@ -99,16 +99,16 @@ public:
         GLfloat velocity = this->movementSpeed * deltaTime;
         
         if (FORWARD == direction)
-            this->position += this->front * velocity;
-        
-        if (BACKWARD == direction)
             this->position -= this->front * velocity;
         
+        if (BACKWARD == direction)
+            this->position += this->front * velocity;
+        
         if (LEFT == direction)
-            this->position -= this->right * velocity;
+            this->position += this->right * velocity;
         
         if (RIGHT == direction)
-            this->position += this->right * velocity;
+            this->position -= this->right * velocity;
         
     }
     
