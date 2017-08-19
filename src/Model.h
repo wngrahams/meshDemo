@@ -31,7 +31,7 @@ GLint textureFromFile(const char *path, std::string directory);
 class Model {
 public:
     //constructor
-    Model(GLchar *path) {
+    Model(const GLchar *path) {
         this->loadModel(path);
     }
     
@@ -119,7 +119,7 @@ private:
         }
         
         //process materials
-        if (mesh->mMaterialIndex >= 0) {
+        if (mesh->mMaterialIndex > 0) { //should it be >= 0?
             aiMaterial *material = scene->mMaterials[mesh->mMaterialIndex];
             
             std::vector<Texture> diffuseMaps = this->loadMaterialTextures(material, aiTextureType_DIFFUSE, "texture_diffuse");

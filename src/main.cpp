@@ -111,7 +111,8 @@ int main () {
     
     Shader shader("res/shaders/modelLoading.vs", "res/shaders/modelLoading.frag");
     
-    Model loadedModel("res/models/nanosuit.obj");
+    char const *modelPath = "res/models/nanosuit.obj";
+    Model loadedModel(modelPath);
     
     glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
     
