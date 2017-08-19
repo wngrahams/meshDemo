@@ -32,7 +32,7 @@ const GLfloat PITCH = 0.0f;
 const GLfloat SPEED = 6.0f;
 const GLfloat SENSITIVITY = 0.25f;
 const GLfloat ZOOM = 45.0f; //fov
-const GLfloat CLIPPING_PLANE_NEAR = 1.0f;
+const GLfloat CLIPPING_PLANE_NEAR = 0.1f;
 const GLfloat CLIPPING_PLANE_FAR = 1000.0f;
 
 class Camera {
