@@ -23,6 +23,8 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include <glm/gtc/quaternion.hpp> 
+#include <glm/gtx/quaternion.hpp>
 
 //Shaders
 #include "Shader.h"
@@ -40,6 +42,8 @@ void keyCallback (GLFWwindow *window, int key, int scancode, int action, int mod
 void scrollCallback (GLFWwindow *window, double xOffset, double yOffset);
 void mouseCallback (GLFWwindow *window, double xPos, double yPos);
 void doMovement ();
+void doRotationX (float &angle);
+void doRotationY (float &angle);
 
 Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
 GLfloat lastX = WIDTH/2.0f;
@@ -63,7 +67,7 @@ int main () {
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3); //openGL version 3.3
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); //required for mac
-    glfwWindowHint(GLFW_RESIZABLE, GL_FALSE); //prevents window from being resized
+    glfwWindowHint(GLFW_RESIZABLE, GL_TRUE); //prevents window from being resized
     
     GLFWwindow *window = glfwCreateWindow(WIDTH, HEIGHT, "Mesh Reduction Demo", nullptr, nullptr);
 
@@ -110,11 +114,75 @@ int main () {
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     
     Shader shader("res/shaders/modelLoading.vs", "res/shaders/modelLoading.frag");
-    
+
     char const *modelPath = "res/models/nanosuit.obj";
     Model loadedModel(modelPath);
     
+//    GLfloat vertices[] =
+//    {
+//        -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,   0.0f, 0.0f,  //each group corresponds to a face
+//        0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,    1.0f, 0.0f,  //first three vals on each row are vertex positions
+//        0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,    1.0f, 1.0f, //second three are normal vectors, last two are textrue coords
+//        0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,    1.0f, 1.0f,
+//        -0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,   0.0f, 1.0f,
+//        -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,   0.0f, 0.0f,
+//        
+//        -0.5f, -0.5f,  0.5f,  0.0f,  0.0f,  1.0f,   0.0f, 0.0f,
+//        0.5f, -0.5f,  0.5f,  0.0f,  0.0f,  1.0f,    1.0f, 0.0f,
+//        0.5f,  0.5f,  0.5f,  0.0f,  0.0f,  1.0f,    1.0f, 1.0f,
+//        0.5f,  0.5f,  0.5f,  0.0f,  0.0f,  1.0f,    1.0f, 1.0f,
+//        -0.5f,  0.5f,  0.5f,  0.0f,  0.0f,  1.0f,   0.0f, 1.0f,
+//        -0.5f, -0.5f,  0.5f,  0.0f,  0.0f,  1.0f,   0.0f, 0.0f,
+//        
+//        -0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,   1.0f, 0.0f,
+//        -0.5f,  0.5f, -0.5f, -1.0f,  0.0f,  0.0f,   1.0f, 1.0f,
+//        -0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,   0.0f, 1.0f,
+//        -0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,   0.0f, 1.0f,
+//        -0.5f, -0.5f,  0.5f, -1.0f,  0.0f,  0.0f,   0.0f, 0.0f,
+//        -0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,   1.0f, 0.0f,
+//        
+//        0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,    1.0f, 0.0f,
+//        0.5f,  0.5f, -0.5f,  1.0f,  0.0f,  0.0f,    1.0f, 1.0f,
+//        0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,    0.0f, 1.0f,
+//        0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,    0.0f, 1.0f,
+//        0.5f, -0.5f,  0.5f,  1.0f,  0.0f,  0.0f,    0.0f, 0.0f,
+//        0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,    1.0f, 0.0f,
+//        
+//        -0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,   0.0f, 1.0f,
+//        0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,    1.0f, 1.0f,
+//        0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,    1.0f, 0.0f,
+//        0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,    1.0f, 0.0f,
+//        -0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,   0.0f, 0.0f,
+//        -0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,   0.0f, 1.0f,
+//        
+//        -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,   0.0f, 1.0f,
+//        0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,    1.0f, 1.0f,
+//        0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,    1.0f, 0.0f,
+//        0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,    1.0f, 0.0f,
+//        -0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,   0.0f, 0.0f,
+//        -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,   0.0f, 1.0f
+//    };
+//    
+//    std::vector<Vertex> vert;
+//    std::vector<GLuint> ind;
+//    std::vector<Texture> tex;
+//    Vertex temp;
+//    for (int i=0; i<36; i++) {
+//        temp.position = glm::vec3(vertices[3*i], vertices[3*i + 1], vertices[3*i + 2]);
+//        temp.normal = glm::vec3(3*i + 3, 3*i + 4, 3*i + 5);
+//        temp.texCoords = glm::vec2(3*i + 6, 3*i + 7);
+//        
+//        vert.push_back(temp);
+//        ind.push_back(i);
+//    }
+//    
+//    Mesh mesh(vert, ind, tex);
+    
+    
     glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    
+    float angleX = 0.0f;
+    float angleY = 0.0f;
     
     //draw loop
     while (!glfwWindowShouldClose(window)) {
@@ -130,6 +198,8 @@ int main () {
         //check if any events were acitivated
         glfwPollEvents();
         doMovement();
+        doRotationX(angleX);
+        doRotationY(angleY);
         
         //clear the colorbuffer
         glClearColor(0.1f, 0.1f, 0.1f, 1.0f); //dark
@@ -145,10 +215,13 @@ int main () {
         //scale model and set position
         glm::mat4 model;
         model = glm::translate(model, glm::vec3(0.0f, -1.75f, 0.0f));
+        model = glm::rotate(model, angleX, glm::vec3(1.0f, 0.0f, 0.0f));
+        model = glm::rotate(model, angleY, glm::vec3(0.0f, 1.0f, 0.0f));
         model = glm::scale(model, glm::vec3(0.2f, 0.2f, 0.2f));
         
         glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
         loadedModel.draw(shader);
+//        mesh.draw(shader);
 
         //swap sceen buffers
         glfwSwapBuffers(window);
@@ -178,6 +251,26 @@ void doMovement () {
     if (keys[GLFW_KEY_D])
         camera.processKeyboard(RIGHT, deltaTime);
 
+}
+
+void doRotationX (float &angleX) {
+    GLfloat velocity = camera.getMovementSpeed() * deltaTime;
+    
+    if (keys[GLFW_KEY_UP])
+        angleX += velocity;
+    
+    if (keys[GLFW_KEY_DOWN])
+        angleX -= velocity;
+}
+
+void doRotationY (float &angleY) {
+    GLfloat velocity = camera.getMovementSpeed() * deltaTime;
+    
+    if (keys[GLFW_KEY_RIGHT])
+        angleY += velocity;
+    
+    if (keys[GLFW_KEY_LEFT])
+        angleY -= velocity;
 }
 
 void keyCallback (GLFWwindow *window, int key, int scancode, int action, int mode) {

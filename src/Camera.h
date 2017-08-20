@@ -158,6 +158,10 @@ public:
     glm::vec3 getFront () {
         return this->front;
     }
+    
+    GLfloat getMovementSpeed () {
+        return this->movementSpeed;
+    }
 };
 
 
