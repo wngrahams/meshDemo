@@ -116,10 +116,10 @@ int main () {
     
     glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
     
-    glm::mat4 projection = glm::perspective(camera.getZoom(), (GLfloat) SCREEN_WIDTH/ (GLfloat) SCREEN_HEIGHT, camera.getNearClippingPlane(), camera.getFarCLippingPlane());
-    
     //draw loop
     while (!glfwWindowShouldClose(window)) {
+        
+        glm::mat4 projection = glm::perspective(camera.getZoom(), (GLfloat) SCREEN_WIDTH/ (GLfloat) SCREEN_HEIGHT, camera.getNearClippingPlane(), camera.getFarCLippingPlane());
         
         //detect time between frames
         GLfloat currentFrame = glfwGetTime();
@@ -167,10 +167,10 @@ int main () {
 
 void doMovement () {
     if (keys[GLFW_KEY_W])
-        camera.processKeyboard(FORWARD, deltaTime);
+        camera.processKeyboard(UP, deltaTime);
     
     if (keys[GLFW_KEY_S])
-        camera.processKeyboard(BACKWARD, deltaTime);
+        camera.processKeyboard(DOWN, deltaTime);
     
     if (keys[GLFW_KEY_A])
         camera.processKeyboard(LEFT, deltaTime);

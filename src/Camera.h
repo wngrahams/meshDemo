@@ -21,8 +21,8 @@
 
 enum Camera_Movement {
     
-    FORWARD,
-    BACKWARD,
+    UP,
+    DOWN,
     LEFT,
     RIGHT
 };
@@ -98,11 +98,11 @@ public:
         
         GLfloat velocity = this->movementSpeed * deltaTime;
         
-        if (FORWARD == direction)
-            this->position -= this->front * velocity;
+        if (UP == direction)
+            this->position -= this->up * velocity;
         
-        if (BACKWARD == direction)
-            this->position += this->front * velocity;
+        if (DOWN == direction)
+            this->position += this->up * velocity;
         
         if (LEFT == direction)
             this->position += this->right * velocity;
@@ -135,14 +135,21 @@ public:
     //process scroll input from mouse
     void processMouseScroll(GLfloat yOffset) {
         
-        if (this->zoom >= 1.0f && this->zoom <= 45.0f)
-            this->zoom += yOffset;
+        yOffset *= this->mouseSensitivity;
+        std::cout << "yOffset: " << yOffset << std::endl;
+        this->position -= this->front * yOffset;
         
-        if (this->zoom <= 1.0f)
-            this->zoom = 1.0f;
         
-        if (this->zoom >= 45.0f)
-            this->zoom = 45.0f;
+//        if (this->zoom >= 1.0f && this->zoom <= 45.0f)
+//            this->zoom -= yOffset;
+//        
+//        if (this->zoom <= 1.0f)
+//            this->zoom = 1.0f;
+//        
+//        if (this->zoom >= 45.0f)
+//            this->zoom = 45.0f;
+        
+//        std::cout << "Zoom: " << zoom << std::endl;
     }
     
     GLfloat getZoom() {
