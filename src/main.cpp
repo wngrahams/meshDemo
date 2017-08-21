@@ -202,8 +202,8 @@ int main () {
         doRotationY(angleY);
         
         //clear the colorbuffer
-        glClearColor(0.1f, 0.1f, 0.1f, 1.0f); //dark
-        //glClearColor(1.0f, 1.0f, 1.0f, 1.0f); //light
+//        glClearColor(0.1f, 0.1f, 0.1f, 1.0f); //dark
+        glClearColor(1.0f, 1.0f, 1.0f, 1.0f); //light
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         
         shader.use();
@@ -212,11 +212,14 @@ int main () {
         glUniformMatrix4fv(glGetUniformLocation(shader.Program, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
         glUniformMatrix4fv(glGetUniformLocation(shader.Program, "view"), 1, GL_FALSE, glm::value_ptr(view));
         
+        glm::quat xQuat = glm::angleAxis(angleX, glm::vec3(1.0f, 0.0f, 0.0f));
+        glm::quat yQuat = glm::angleAxis(angleY, glm::vec3(0.0f, 1.0f, 0.0f));
+        
         //scale model and set position
         glm::mat4 model;
         model = glm::translate(model, glm::vec3(0.0f, -1.75f, 0.0f));
-        model = glm::rotate(model, angleX, glm::vec3(1.0f, 0.0f, 0.0f));
-        model = glm::rotate(model, angleY, glm::vec3(0.0f, 1.0f, 0.0f));
+        model *= glm::toMat4(xQuat);
+        model *= glm::toMat4(yQuat);
         model = glm::scale(model, glm::vec3(0.2f, 0.2f, 0.2f));
         
         glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
