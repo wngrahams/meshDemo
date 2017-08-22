@@ -14,6 +14,7 @@
 		9AD5E0511F3C8A0100E57071 /* SOIL2.c in Sources */ = {isa = PBXBuildFile; fileRef = 9AD5E0421F3C8A0100E57071 /* SOIL2.c */; };
 		9AD5E0591F3C933C00E57071 /* images in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9AD5E0581F3C931900E57071 /* images */; };
 		9AD5E05A1F3C934800E57071 /* shaders in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9AD5E0561F3C930100E57071 /* shaders */; };
+		9AD631061F4BCC4F0006CE5C /* QuatMath.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9AD631041F4BCC4F0006CE5C /* QuatMath.cpp */; };
 		9AD8673C1F3A713200C2168B /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9AD8673B1F3A713200C2168B /* main.cpp */; };
 		9AD867431F3A726E00C2168B /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AD867421F3A726E00C2168B /* OpenGL.framework */; };
 		9AD867451F3A72C000C2168B /* libGLEW.2.1.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AD867441F3A72C000C2168B /* libGLEW.2.1.0.dylib */; };
@@ -73,6 +74,8 @@
 		9AD5E0561F3C930100E57071 /* shaders */ = {isa = PBXFileReference; lastKnownFileType = folder; name = shaders; path = res/shaders; sourceTree = SOURCE_ROOT; };
 		9AD5E0581F3C931900E57071 /* images */ = {isa = PBXFileReference; lastKnownFileType = folder; name = images; path = res/images; sourceTree = SOURCE_ROOT; };
 		9AD5E05B1F3DD0F400E57071 /* Camera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Camera.h; sourceTree = "<group>"; };
+		9AD631041F4BCC4F0006CE5C /* QuatMath.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = QuatMath.cpp; sourceTree = "<group>"; };
+		9AD631051F4BCC4F0006CE5C /* QuatMath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuatMath.h; sourceTree = "<group>"; };
 		9AD867381F3A713200C2168B /* meshReduction */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = meshReduction; sourceTree = BUILT_PRODUCTS_DIR; };
 		9AD8673B1F3A713200C2168B /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; usesTabs = 0; };
 		9AD867421F3A726E00C2168B /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
@@ -172,6 +175,8 @@
 				9AD5E05B1F3DD0F400E57071 /* Camera.h */,
 				9A782C5E1F477F40002C79AA /* Mesh.h */,
 				9A4656BC1F48A66600ED23C2 /* Model.h */,
+				9AD631041F4BCC4F0006CE5C /* QuatMath.cpp */,
+				9AD631051F4BCC4F0006CE5C /* QuatMath.h */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
@@ -233,6 +238,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9AD631061F4BCC4F0006CE5C /* QuatMath.cpp in Sources */,
 				9AD5E0501F3C8A0100E57071 /* image_helper.c in Sources */,
 				9AD8673C1F3A713200C2168B /* main.cpp in Sources */,
 				9AD5E04F1F3C8A0100E57071 /* image_DXT.c in Sources */,
