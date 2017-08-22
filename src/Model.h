@@ -30,9 +30,15 @@ GLint textureFromFile(const char *path, std::string directory);
 
 class Model {
 public:
+    glm::vec3 up;
+    glm::vec3 right;
+    
     //constructor
     Model(const GLchar *path) {
         this->loadModel(path);
+        
+        this->up = {0.0f, 1.0f, 0.0f};
+        this->right = {-1.0f, 0.0f, 0.0f};
     }
     
     void draw(Shader shader) {

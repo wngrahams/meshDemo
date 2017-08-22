@@ -7,7 +7,7 @@
 //
 
 #include <iostream>
-#include <cmath>
+#include <math.h>
 
 //GLEW
 #define GLEW_STATIC
@@ -26,12 +26,9 @@
 #include <glm/gtc/quaternion.hpp> 
 #include <glm/gtx/quaternion.hpp>
 
-//Shaders
+//other includes
 #include "Shader.h"
-
-//Camera
 #include "Camera.h"
-
 #include "Mesh.h"
 #include "Model.h"
 
@@ -42,8 +39,8 @@ void keyCallback (GLFWwindow *window, int key, int scancode, int action, int mod
 void scrollCallback (GLFWwindow *window, double xOffset, double yOffset);
 void mouseCallback (GLFWwindow *window, double xPos, double yPos);
 void doMovement ();
-void doRotationX (float &angle);
-void doRotationY (float &angle);
+void doRotationX (float &angleX, glm::vec3 &up);
+void doRotationY (float &angle, glm::vec3 &right);
 
 Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
 GLfloat lastX = WIDTH/2.0f;
@@ -198,8 +195,8 @@ int main () {
         //check if any events were acitivated
         glfwPollEvents();
         doMovement();
-        doRotationX(angleX);
-        doRotationY(angleY);
+        doRotationX(angleX, loadedModel.up);
+        doRotationY(angleY, loadedModel.right);
         
         //clear the colorbuffer
 //        glClearColor(0.1f, 0.1f, 0.1f, 1.0f); //dark
@@ -212,14 +209,15 @@ int main () {
         glUniformMatrix4fv(glGetUniformLocation(shader.Program, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
         glUniformMatrix4fv(glGetUniformLocation(shader.Program, "view"), 1, GL_FALSE, glm::value_ptr(view));
         
-        glm::quat xQuat = glm::angleAxis(angleX, glm::vec3(1.0f, 0.0f, 0.0f));
-        glm::quat yQuat = glm::angleAxis(angleY, glm::vec3(0.0f, 1.0f, 0.0f));
+        glm::quat xQuat = glm::angleAxis(angleX, loadedModel.right);
+        glm::quat yQuat = glm::angleAxis(angleY, loadedModel.up);
         
         //scale model and set position
         glm::mat4 model;
         model = glm::translate(model, glm::vec3(0.0f, -1.75f, 0.0f));
         model *= glm::toMat4(xQuat);
         model *= glm::toMat4(yQuat);
+//        model *= glm::toMat4(xQuat);
         model = glm::scale(model, glm::vec3(0.2f, 0.2f, 0.2f));
         
         glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
@@ -256,17 +254,31 @@ void doMovement () {
 
 }
 
-void doRotationX (float &angleX) {
+void doRotationX (float &angleX, glm::vec3 &up) {
     GLfloat velocity = camera.getMovementSpeed() * deltaTime;
     
-    if (keys[GLFW_KEY_UP])
+    if (keys[GLFW_KEY_UP]) {
         angleX += velocity;
+    }
     
     if (keys[GLFW_KEY_DOWN])
         angleX -= velocity;
+    
+    if (angleX > M_PI)
+        angleX -= 2*M_PI;
+    
+    if (angleX < -1*M_PI)
+        angleX += 2*M_PI;
+    
+//    std::cout << "angleX: " << angleX << std::endl;
+    
+    up.y = cosf(angleX);
+    up.z = sinf(angleX);
+    
+    std::cout << "up: " << up.x << ", " << up.y << ", " << up.z << std::endl;
 }
 
-void doRotationY (float &angleY) {
+void doRotationY (float &angleY, glm::vec3 &right) {
     GLfloat velocity = camera.getMovementSpeed() * deltaTime;
     
     if (keys[GLFW_KEY_RIGHT])
@@ -274,6 +286,20 @@ void doRotationY (float &angleY) {
     
     if (keys[GLFW_KEY_LEFT])
         angleY -= velocity;
+    
+    if (angleY > M_PI)
+        angleY -= 2*M_PI;
+    
+    if (angleY < -1*M_PI)
+        angleY += 2*M_PI;
+    
+//    std::cout << "angleY: " << angleY << std::endl;
+    
+//    right.x = cosf(angleY)*-1;
+//    right.z = sinf(angleY)*-1;
+    
+    std::cout << "right: " << right.x << ", " << right.y << ", " << right.z << std::endl;
+
 }
 
 void keyCallback (GLFWwindow *window, int key, int scancode, int action, int mode) {
