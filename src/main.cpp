@@ -23,7 +23,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
-#include <glm/gtc/quaternion.hpp> 
+#include <glm/gtc/quaternion.hpp>
 #include <glm/gtx/quaternion.hpp>
 
 //other includes
@@ -67,7 +67,7 @@ int main () {
     glfwWindowHint(GLFW_RESIZABLE, GL_TRUE); //prevents window from being resized
     
     GLFWwindow *window = glfwCreateWindow(WIDTH, HEIGHT, "Mesh Reduction Demo", nullptr, nullptr);
-
+    
     
     if (window == nullptr) {
         std::cout << "Failed to creat GLFW window!\n";
@@ -199,7 +199,7 @@ int main () {
         doRotationY(angleY, loadedModel.right);
         
         //clear the colorbuffer
-//        glClearColor(0.1f, 0.1f, 0.1f, 1.0f); //dark
+        //glClearColor(0.1f, 0.1f, 0.1f, 1.0f); //dark
         glClearColor(1.0f, 1.0f, 1.0f, 1.0f); //light
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         
@@ -223,7 +223,7 @@ int main () {
         glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
         loadedModel.draw(shader);
 //        mesh.draw(shader);
-
+        
         //swap sceen buffers
         glfwSwapBuffers(window);
     }
@@ -236,7 +236,7 @@ int main () {
     
     
     return EXIT_SUCCESS;
-        
+    
 }
 
 void doMovement () {
@@ -251,7 +251,7 @@ void doMovement () {
     
     if (keys[GLFW_KEY_D])
         camera.processKeyboard(RIGHT, deltaTime);
-
+    
 }
 
 void doRotationX (float &angleX, glm::vec3 &up) {
@@ -299,7 +299,7 @@ void doRotationY (float &angleY, glm::vec3 &right) {
 //    right.z = sinf(angleY)*-1;
     
     std::cout << "right: " << right.x << ", " << right.y << ", " << right.z << std::endl;
-
+    
 }
 
 void keyCallback (GLFWwindow *window, int key, int scancode, int action, int mode) {
@@ -333,7 +333,6 @@ void mouseCallback (GLFWwindow *window, double xPos, double yPos) {
 void scrollCallback (GLFWwindow *window, double xOffset, double yOffset) {
     camera.processMouseScroll(yOffset);
 }
-
 
 
 

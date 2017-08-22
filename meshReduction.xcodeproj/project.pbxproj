@@ -101,6 +101,8 @@
 		9AD5E0371F3C8A0100E57071 /* tools */ = {
 			isa = PBXGroup;
 			children = (
+				9AD631041F4BCC4F0006CE5C /* QuatMath.cpp */,
+				9AD631051F4BCC4F0006CE5C /* QuatMath.h */,
 				9AD5E0381F3C8A0100E57071 /* SOIL2 */,
 			);
 			path = tools;
@@ -175,8 +177,6 @@
 				9AD5E05B1F3DD0F400E57071 /* Camera.h */,
 				9A782C5E1F477F40002C79AA /* Mesh.h */,
 				9A4656BC1F48A66600ED23C2 /* Model.h */,
-				9AD631041F4BCC4F0006CE5C /* QuatMath.cpp */,
-				9AD631051F4BCC4F0006CE5C /* QuatMath.h */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
