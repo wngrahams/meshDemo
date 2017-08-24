@@ -26,6 +26,8 @@ Geometry loadBinarySTL (std::string filename) {
     if (!stlFile)
         std::cout << "Error reading number of triangles from '" << filename << "'\n";
     
+    std::cout << "Number of triangles: " << numTriangles << std::endl;
+    
 //    float vertices[numTriangles * 9];
 //    int indices[numTriangles * 3];
 //    float normals[numTriangles * 3];

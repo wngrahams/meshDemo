@@ -14,22 +14,29 @@
 
 class Geometry {
 public:
-    Geometry(){};
     
-    Geometry (float *normals, float *vertices, int *indices, int numTris){
-        
-        for (int i=0; i<numTris*3; i++) {
-            std::cout << vertices[3*i] << std::endl;
-            std::cout << vertices[3*i + 1] << std::endl;
-            std::cout << vertices[3*i + 2] << std::endl;
-            
-//            std::cout << normals[i] << std::endl;
-        }
-        
-        delete normals;
-        delete vertices;
-        delete indices;
-    };
+    Geometry (float *normals, float *vertices, int *indices, int numTris);
+    
+    void calculateVertexNormals ();
+    void calculateFaceNormals ();
+    
+    int getNumTriangles () {return this->numTriangles;}
+    int getNumVertices () {return this->numVertices;}
+    int getNumIndices () {return this->numTriangles * 3;}
+    float* getFaceNormals () {return this->faceNormals;}
+    float* getVertexNormals () {return this->vertexNormals;}
+    float* getVertices () {return this->vertices;}
+    int* getIndices () {return this->indices;}
+    
+private:
+    float *faceNormals;
+    float *vertices;
+    int *indices;
+    
+    float *vertexNormals;
+    
+    int numTriangles;
+    int numVertices;
 };
 
 #endif /* defined(__meshReduction__Geometry__) */
