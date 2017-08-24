@@ -117,6 +117,8 @@ int main () {
     char const *modelPath = "res/models/nanosuit.obj";
     Model loadedModel(modelPath);
     
+    Geometry geom = loadBinarySTL("res/models/001.stl");
+    
 //    GLfloat vertices[] =
 //    {
 //        -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,   0.0f, 0.0f,  //each group corresponds to a face
