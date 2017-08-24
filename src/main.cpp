@@ -117,7 +117,8 @@ int main () {
     char const *modelPath = "res/models/nanosuit.obj";
     Model loadedModel(modelPath);
     
-    Geometry geom = loadBinarySTL("res/models/001.stl");
+//    Geometry geom = loadBinarySTL("res/models/001.stl");
+    Geometry geom = loadBinarySTL("res/models/sphere_small.stl");
     
 //    GLfloat vertices[] =
 //    {
@@ -179,14 +180,24 @@ int main () {
 //    
 //    Mesh mesh(vert, ind, tex);
     
-    
-    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+        
+    unsigned long frames = 0;
+    bool line = false;
     
     float angleX = 0.0f;
     float angleY = 0.0f;
     
     //draw loop
     while (!glfwWindowShouldClose(window)) {
+        
+        if (frames%600 == 0 && line == false) {
+            glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+            line = true;
+        }
+        else if (frames%600 == 0 && line == true) {
+            glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+            line = false;
+        }
         
         glm::mat4 projection = glm::perspective(camera.getZoom(), (GLfloat) SCREEN_WIDTH/ (GLfloat) SCREEN_HEIGHT, camera.getNearClippingPlane(), camera.getFarCLippingPlane());
         
@@ -230,6 +241,12 @@ int main () {
         
         //swap sceen buffers
         glfwSwapBuffers(window);
+        
+        frames++;
+        
+        if (frames >= ULONG_LONG_MAX) {
+            frames = 0;
+        }
     }
     
     //Deallocate resources

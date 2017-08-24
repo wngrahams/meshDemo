@@ -16,7 +16,7 @@
 		9AD5E05A1F3C934800E57071 /* shaders in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9AD5E0561F3C930100E57071 /* shaders */; };
 		9AD631061F4BCC4F0006CE5C /* QuatMath.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9AD631041F4BCC4F0006CE5C /* QuatMath.cpp */; };
 		9AD631091F4E86BB0006CE5C /* BinaryStlLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9AD631071F4E86BB0006CE5C /* BinaryStlLoader.cpp */; };
-		9AD6310C1F4E87A70006CE5C /* Geometry.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9AD6310A1F4E87A70006CE5C /* Geometry.cpp */; };
+		9AD6310E1F4F85970006CE5C /* Geometry.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9AD6310D1F4F85970006CE5C /* Geometry.cpp */; };
 		9AD8673C1F3A713200C2168B /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9AD8673B1F3A713200C2168B /* main.cpp */; };
 		9AD867431F3A726E00C2168B /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AD867421F3A726E00C2168B /* OpenGL.framework */; };
 		9AD867451F3A72C000C2168B /* libGLEW.2.1.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AD867441F3A72C000C2168B /* libGLEW.2.1.0.dylib */; };
@@ -80,8 +80,8 @@
 		9AD631051F4BCC4F0006CE5C /* QuatMath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuatMath.h; sourceTree = "<group>"; };
 		9AD631071F4E86BB0006CE5C /* BinaryStlLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BinaryStlLoader.cpp; sourceTree = "<group>"; };
 		9AD631081F4E86BB0006CE5C /* BinaryStlLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BinaryStlLoader.h; sourceTree = "<group>"; };
-		9AD6310A1F4E87A70006CE5C /* Geometry.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Geometry.cpp; sourceTree = "<group>"; };
 		9AD6310B1F4E87A70006CE5C /* Geometry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Geometry.h; sourceTree = "<group>"; };
+		9AD6310D1F4F85970006CE5C /* Geometry.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Geometry.cpp; sourceTree = "<group>"; };
 		9AD867381F3A713200C2168B /* meshReduction */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = meshReduction; sourceTree = BUILT_PRODUCTS_DIR; };
 		9AD8673B1F3A713200C2168B /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; usesTabs = 0; };
 		9AD867421F3A726E00C2168B /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
@@ -185,8 +185,8 @@
 				9A4656BC1F48A66600ED23C2 /* Model.h */,
 				9AD631071F4E86BB0006CE5C /* BinaryStlLoader.cpp */,
 				9AD631081F4E86BB0006CE5C /* BinaryStlLoader.h */,
-				9AD6310A1F4E87A70006CE5C /* Geometry.cpp */,
 				9AD6310B1F4E87A70006CE5C /* Geometry.h */,
+				9AD6310D1F4F85970006CE5C /* Geometry.cpp */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
@@ -249,7 +249,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9AD631061F4BCC4F0006CE5C /* QuatMath.cpp in Sources */,
-				9AD6310C1F4E87A70006CE5C /* Geometry.cpp in Sources */,
+				9AD6310E1F4F85970006CE5C /* Geometry.cpp in Sources */,
 				9AD5E0501F3C8A0100E57071 /* image_helper.c in Sources */,
 				9AD8673C1F3A713200C2168B /* main.cpp in Sources */,
 				9AD5E04F1F3C8A0100E57071 /* image_DXT.c in Sources */,
