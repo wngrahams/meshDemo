@@ -12,7 +12,10 @@
 #include <stdio.h>
 
 class Geometry {
+public:
+    Geometry(){};
     
+    Geometry (float *normals, float *vertices, int *indices){};
 };
 
 #endif /* defined(__meshReduction__Geometry__) */

@@ -31,6 +31,8 @@
 #include "Camera.h"
 #include "Mesh.h"
 #include "Model.h"
+#include "Geometry.h"
+#include "BinaryStlLoader.h"
 
 const GLint WIDTH = 800, HEIGHT = 600; //screen dimensions
 int SCREEN_WIDTH, SCREEN_HEIGHT; //required for mac due to retina display
@@ -275,7 +277,7 @@ void doRotationX (float &angleX, glm::vec3 &up) {
     up.y = cosf(angleX);
     up.z = sinf(angleX);
     
-    std::cout << "up: " << up.x << ", " << up.y << ", " << up.z << std::endl;
+//    std::cout << "up: " << up.x << ", " << up.y << ", " << up.z << std::endl;
 }
 
 void doRotationY (float &angleY, glm::vec3 &right) {
@@ -298,7 +300,7 @@ void doRotationY (float &angleY, glm::vec3 &right) {
 //    right.x = cosf(angleY)*-1;
 //    right.z = sinf(angleY)*-1;
     
-    std::cout << "right: " << right.x << ", " << right.y << ", " << right.z << std::endl;
+//    std::cout << "right: " << right.x << ", " << right.y << ", " << right.z << std::endl;
     
 }
 

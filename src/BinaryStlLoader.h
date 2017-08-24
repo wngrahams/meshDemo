@@ -15,7 +15,12 @@
 
 #include "Geometry.h"
 
+const int HEADER_SIZE = 80;
+const int TRIANGLE_COUNT_SIZE = 4;
+const int COORD_SIZE = 4;
+const int UNUSED_BUFFER_SIZE = 2;
 
+Geometry loadBinarySTL (std::string filename);
 
 
 #endif /* defined(__meshReduction__BinaryStlLoader__) */
