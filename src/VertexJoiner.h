@@ -14,33 +14,54 @@
 
 class VertexJoiner {
 public:
+    float *oldVertices;
+    
     VertexJoiner (int *indices, float *vertices, int numIndices, int numVertices);
     
     ~VertexJoiner ();
     
     float* getVertices () {return this->newVertices;}
     int* getIndices () {return this->newIndices;}
-    
-protected:
+
+private:
     float *newVertices;
-    float *oldVertices;
     int *newIndices;
 };
 
-class VertexDummyArray {
-public:
-    VertexDummyArray (int i) {this->idx = i;}
-    
-private:
+struct DummyVertex {
     int idx;
     int parent;
+    VertexJoiner *joiner;
+    
+    DummyVertex (int i) {this->idx = i;}
 };
 
-inline bool operator==(const VertexDummyArray& lhs, const VertexDummyArray& rhs){ /* do actual comparison */ }
-inline bool operator!=(const VertexDummyArray& lhs, const VertexDummyArray& rhs){return !operator==(lhs,rhs);}
-inline bool operator< (const VertexDummyArray& lhs, const VertexDummyArray& rhs){ /* do actual comparison */ }
-inline bool operator> (const VertexDummyArray& lhs, const VertexDummyArray& rhs){return  operator< (rhs,lhs);}
-inline bool operator<=(const VertexDummyArray& lhs, const VertexDummyArray& rhs){return !operator> (lhs,rhs);}
-inline bool operator>=(const VertexDummyArray& lhs, const VertexDummyArray& rhs){return !operator< (lhs,rhs);
+inline bool operator==(const DummyVertex& lhs, const DummyVertex& rhs){
+    if (lhs.joiner->oldVertices[3 * lhs.idx] == rhs.joiner->oldVertices[3 * rhs.idx] &&
+        lhs.joiner->oldVertices[3 * lhs.idx + 1] == rhs.joiner->oldVertices[3 * rhs.idx + 1] &&
+        lhs.joiner->oldVertices[3 * lhs.idx + 2] == rhs.joiner->oldVertices[3 * rhs.idx + 2]) {
+        return true;
+    }
+    
+    return false;
+}
+inline bool operator!=(const DummyVertex& lhs, const DummyVertex& rhs){return !operator==(lhs,rhs);}
+inline bool operator< (const DummyVertex& lhs, const DummyVertex& rhs){
+    if (lhs.joiner->oldVertices[3 * lhs.idx] < rhs.joiner->oldVertices[3 * rhs.idx])
+        return true;
+    else if (lhs.joiner->oldVertices[3 * lhs.idx] > rhs.joiner->oldVertices[3 * rhs.idx])
+        return false;
+    else if (lhs.joiner->oldVertices[3 * lhs.idx + 1] < rhs.joiner->oldVertices[3 * rhs.idx + 1])
+        return true;
+    else if (lhs.joiner->oldVertices[3 * lhs.idx + 1] > rhs.joiner->oldVertices[3 * rhs.idx + 1])
+        return false;
+    else if (lhs.joiner->oldVertices[3 * lhs.idx + 2] < rhs.joiner->oldVertices[3 * rhs.idx + 2])
+        return true;
+    else
+        return false;
+}
+inline bool operator> (const DummyVertex& lhs, const DummyVertex& rhs){return  operator< (rhs,lhs);}
+inline bool operator<=(const DummyVertex& lhs, const DummyVertex& rhs){return !operator> (lhs,rhs);}
+inline bool operator>=(const DummyVertex& lhs, const DummyVertex& rhs){return !operator< (lhs,rhs);}
 
 #endif /* defined(__meshReduction__VertexJoiner__) */
