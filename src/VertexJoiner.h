@@ -33,7 +33,7 @@ struct DummyVertex {
     int parent;
     VertexJoiner *joiner;
     
-    DummyVertex (int i) {this->idx = i;}
+    DummyVertex (int i = -1, VertexJoiner *join = nullptr) {this->idx = i; this->joiner = join;}
 };
 
 inline bool operator==(const DummyVertex& lhs, const DummyVertex& rhs){
