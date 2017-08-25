@@ -8,15 +8,16 @@
 
 #include <glm/glm.hpp>
 #include "Geometry.h"
+#include "VertexJoiner.h"
 
 Geometry::Geometry (float *normals, float *vertices, int *indices, int numTris) {
-    for (int i=0; i<numTris*3; i++) {
+//    for (int i=0; i<numTris*3; i++) {
 //        std::cout << vertices[3*i] << std::endl;
 //        std::cout << vertices[3*i + 1] << std::endl;
 //        std::cout << vertices[3*i + 2] << std::endl;
-        
-        std::cout << faceNormals[i] << std::endl;
-    }
+//        
+////        std::cout << faceNormals[i] << std::endl;
+//    }
 //
 //    delete normals;
 //    delete vertices;
@@ -32,11 +33,25 @@ Geometry::Geometry (float *normals, float *vertices, int *indices, int numTris) 
     this->vertices = vertices;
     this->indices = indices;
     
-    //join nodes, then calculate normals
+    //join vertices, then calculate normals
+    joinVertices();
+    
+    for (int i=0; i<this->numVertices; i++) {
+        std::cout << this->vertices[3*i] << std::endl;
+        std::cout << this->vertices[3*i + 1] << std::endl;
+        std::cout << this->vertices[3*i + 2] << std::endl;
+        
+        //        std::cout << faceNormals[i] << std::endl;
+    }
 }
 
 void Geometry::joinVertices() {
+    VertexJoiner *joiner = new VertexJoiner(this->indices, this->vertices, this->numTriangles*3, this->numVertices);
+    this->vertices = joiner->getVertices();
+    this->indices = joiner->getIndices();
     
+    this->faceNormals = nullptr;
+    this->numVertices = joiner->getNewNumVerts();
 }
 
 void Geometry::calculateVertexNormals () {

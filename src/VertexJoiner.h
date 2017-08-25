@@ -22,10 +22,12 @@ public:
     
     float* getVertices () {return this->newVertices;}
     int* getIndices () {return this->newIndices;}
+    const int getNewNumVerts () {return this->newNumVerts;}
 
 private:
     float *newVertices;
     int *newIndices;
+    int newNumVerts;
 };
 
 struct DummyVertex {

@@ -56,6 +56,7 @@ VertexJoiner::VertexJoiner (int *ind, float *vert, int numInd, int numVert) {
         newIndices[i] = vertVec2[ind[i]].parent;
     
     oldVertices = nullptr;
+    this->newNumVerts = vcount;
 }
 
 
