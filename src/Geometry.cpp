@@ -23,6 +23,7 @@ Geometry::Geometry (float *normals, float *vertices, int *indices, int numTris) 
 //    delete indices;
     
     this->numTriangles = numTris;
+    this->numVertices = numTris * 3;
 //    this->normals = new float [this->numTriangles * 3];
 //    this->vertices = new float [this->numTriangles * 9];
 //    this->indices =  new int [this->numTriangles * 3];
@@ -30,6 +31,12 @@ Geometry::Geometry (float *normals, float *vertices, int *indices, int numTris) 
     this->faceNormals = normals;
     this->vertices = vertices;
     this->indices = indices;
+    
+    //join nodes, then calculate normals
+}
+
+void Geometry::joinVertices() {
+    
 }
 
 void Geometry::calculateVertexNormals () {

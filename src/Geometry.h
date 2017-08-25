@@ -17,6 +17,8 @@ public:
     
     Geometry (float *normals, float *vertices, int *indices, int numTris);
     
+    void joinVertices ();
+    
     void calculateVertexNormals ();
     void calculateFaceNormals ();
     
