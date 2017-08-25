@@ -69,7 +69,7 @@ Geometry loadBinarySTL (std::string filename) {
             
             stlFile.read((char*)(vertices + (9 * i + 3 * j)), COORD_SIZE);
             stlFile.read((char*)(vertices + (9 * i + 3 * j + 1)), COORD_SIZE);
-            stlFile.read((char*)(vertices + (9 * i + 3 * j + 1)), COORD_SIZE);
+            stlFile.read((char*)(vertices + (9 * i + 3 * j + 2)), COORD_SIZE);
         }
         
         stlFile.read(unusedBuffer, UNUSED_BUFFER_SIZE);
