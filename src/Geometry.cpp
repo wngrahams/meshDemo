@@ -35,6 +35,9 @@ Geometry::Geometry (float *normals, float *vertices, int *indices, int numTris) 
     for (int i=0; i<this->numTriangles*3; i++) {
         std::cout << this->indices[i] << std::endl;
     }
+    
+    //calculate face normals before calculating vertex normals:
+    this->calculateFaceNormals();
 }
 
 void Geometry::joinVertices() {
@@ -46,12 +49,60 @@ void Geometry::joinVertices() {
     this->numVertices = joiner->getNewNumVerts();
 }
 
+void Geometry::calculateFaceNormals() {
+    glm::vec3 v0;
+    glm::vec3 v1;
+    glm::vec3 v2;
+    
+    glm::vec3 temp1;
+    glm::vec3 temp2;
+    
+    glm::vec3 normal;
+    
+    this->faceNormals = new float[this->numTriangles * 3];
+    
+    for (int i=0; i<this->numTriangles; i++) {
+        v0 = {this->vertices[indices[3 * i + 0] * 3 + 0],
+              this->vertices[indices[3 * i + 0] * 3 + 1],
+              this->vertices[indices[3 * i + 0] * 3 + 2]};
+        v1 = {this->vertices[indices[3 * i + 1] * 3 + 0],
+              this->vertices[indices[3 * i + 1] * 3 + 1],
+              this->vertices[indices[3 * i + 1] * 3 + 2]};
+        v2 = {this->vertices[indices[3 * i + 2] * 3 + 0],
+              this->vertices[indices[3 * i + 2] * 3 + 1],
+              this->vertices[indices[3 * i + 2] * 3 + 2]};
+        
+        temp1 = v1 - v0;
+        
+        temp2 = v2 - v1;
+        
+        normal = glm::cross(temp1, temp2);
+        
+        if (normal.length() == 0) {
+            this->faceNormals[3 * i + 0] = normal.x;
+            this->faceNormals[3 * i + 1] = normal.y;
+            this->faceNormals[3 * i + 2] = normal.z;
+            
+            return;
+        }
+        
+        normal = glm::normalize(normal);
+        this->faceNormals[3 * i + 0] = normal.x;
+        this->faceNormals[3 * i + 1] = normal.y;
+        this->faceNormals[3 * i + 2] = normal.z;
+    }
+}
+
 void Geometry::calculateVertexNormals () {
-    this->calculateFaceNormals();
+    
     
     
 }
 
-void Geometry::calculateFaceNormals() {
-    
-}
+
+
+
+
+
+
+
