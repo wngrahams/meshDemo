@@ -11,34 +11,34 @@
 #include <vector>
 #include "VertexJoiner.h"
 
+bool compareDummyVertexPointers (DummyVertex *dv1, DummyVertex *dv2) {return (*dv1 < *dv2);}
+
 VertexJoiner::VertexJoiner (int *ind, float *vert, int numInd, int numVert) {
     if (nullptr == ind || nullptr == vert || numInd == 0 || numVert == 0)
         std::cout << "Indices and vertices must contain at least 1 vertex\n";
-    
-//    std::vector<float> oldVertices;
-//    oldVertices.assign(vert, vert + numVert);
+
     this->oldVertices = vert;
     
-    std::vector<DummyVertex> vertVec(numVert);
-    std::vector<DummyVertex> vertVec2(numVert);
+    std::vector<DummyVertex *> vertVec(numVert);
+    std::vector<DummyVertex *> vertVec2(numVert);
     
     for (int i=0; i < numVert; i++) {
-        vertVec[i] = *new DummyVertex(i, this);
-        vertVec2[i] = *new DummyVertex(i, this);
+        vertVec[i] = new DummyVertex(i, this);
+        vertVec2[i] = vertVec[i];
     }
     
-    std::sort(vertVec.begin(), vertVec.end());
+    std::sort(vertVec.begin(), vertVec.end(), compareDummyVertexPointers);
     int vcount = 1;
-    vertVec[0].parent = 0;
+    vertVec[0]->parent = 0;
     
     std::vector<int> restVerts;
     restVerts.push_back(0);
     
     for (int i=0; i < numVert - 1; i++) {
-        if (vertVec[i] == vertVec[i + 1])
-            vertVec[i + 1].parent = vertVec[i].parent;
+        if (*(vertVec[i]) == *(vertVec[i + 1]))
+            vertVec[i + 1]->parent = vertVec[i]->parent;
         else {
-            vertVec[i + 1].parent = vcount++;
+            vertVec[i + 1]->parent = vcount++;
             restVerts.push_back(i + 1);
         }
     }
@@ -47,17 +47,21 @@ VertexJoiner::VertexJoiner (int *ind, float *vert, int numInd, int numVert) {
     this->newIndices = new int[numInd];
     
     for (int i=0; i<vcount; i++) {
-        this->newVertices[3 * i + 0] = vert[vertVec[restVerts.at(i)].idx * 3 + 0];
-        this->newVertices[3 * i + 1] = vert[vertVec[restVerts.at(i)].idx * 3 + 1];
-        this->newVertices[3 * i + 2] = vert[vertVec[restVerts.at(i)].idx * 3 + 2];
+        this->newVertices[3 * i + 0] = vert[vertVec[restVerts.at(i)]->idx * 3 + 0];
+        this->newVertices[3 * i + 1] = vert[vertVec[restVerts.at(i)]->idx * 3 + 1];
+        this->newVertices[3 * i + 2] = vert[vertVec[restVerts.at(i)]->idx * 3 + 2];
     }
     
-    for (int i=0; i<numInd; i++)
-        newIndices[i] = vertVec2[ind[i]].parent;
+    for (int i=0; i<numInd; i++) 
+        this->newIndices[i] = vertVec2[ind[i]]->parent;
     
     oldVertices = nullptr;
     this->newNumVerts = vcount;
+    
+    for (int i=vertVec.size()-1; i>=0; i--) 
+        delete vertVec[i];
 }
+
 
 
 

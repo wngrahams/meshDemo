@@ -36,9 +36,12 @@ struct DummyVertex {
     VertexJoiner *joiner;
     
     DummyVertex (int i = -1, VertexJoiner *join = nullptr) {this->idx = i; this->joiner = join;}
+    ~DummyVertex () {joiner = nullptr;}
 };
 
 inline bool operator==(const DummyVertex& lhs, const DummyVertex& rhs){
+//    std::cout << "INSIDE OVERLOADED EQUALITY OPERATOR.\n";
+    
     if (lhs.joiner->oldVertices[3 * lhs.idx] == rhs.joiner->oldVertices[3 * rhs.idx] &&
         lhs.joiner->oldVertices[3 * lhs.idx + 1] == rhs.joiner->oldVertices[3 * rhs.idx + 1] &&
         lhs.joiner->oldVertices[3 * lhs.idx + 2] == rhs.joiner->oldVertices[3 * rhs.idx + 2]) {
@@ -49,6 +52,8 @@ inline bool operator==(const DummyVertex& lhs, const DummyVertex& rhs){
 }
 inline bool operator!=(const DummyVertex& lhs, const DummyVertex& rhs){return !operator==(lhs,rhs);}
 inline bool operator< (const DummyVertex& lhs, const DummyVertex& rhs){
+//    std::cout << "INSIDE OVERLOADED LESS THAN OPERATOR.\n";
+
     if (lhs.joiner->oldVertices[3 * lhs.idx] < rhs.joiner->oldVertices[3 * rhs.idx])
         return true;
     else if (lhs.joiner->oldVertices[3 * lhs.idx] > rhs.joiner->oldVertices[3 * rhs.idx])
