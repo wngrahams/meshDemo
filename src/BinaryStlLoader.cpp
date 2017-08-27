@@ -25,24 +25,12 @@ Geometry loadBinarySTL (std::string filename) {
     
     if (!stlFile)
         std::cout << "Error reading number of triangles from '" << filename << "'\n";
-    
-    std::cout << "Number of triangles: " << numTriangles << std::endl;
-    
-//    float vertices[numTriangles * 9];
-//    int indices[numTriangles * 3];
-//    float normals[numTriangles * 3];
-    
+        
     float *vertices = new float[numTriangles * 9];
     int *indices = new int[numTriangles * 3];
     float *normals = new float[numTriangles * 3];
     
     for (int i=0; i<(numTriangles * 3); i++) {
-//        vertices[3*i] = 0.0f;
-//        vertices[3*i + 1] = 0.0f;
-//        vertices[3*i + 2] = 0.0f;
-//        indices[i] = 0;
-//        normals[i] = 0.0f;
-        
         *(vertices + i) = 0.0f;
         *(indices + i) = 0;
         *(normals + i) = 0.0f;
@@ -52,21 +40,13 @@ Geometry loadBinarySTL (std::string filename) {
     
     for (int i=0; i<numTriangles; i++) {
         
-//        stlFile.read((char*)&normals[3 * i], COORD_SIZE);
-//        stlFile.read((char*)&normals[3 * i + 1], COORD_SIZE);
-//        stlFile.read((char*)&normals[3 * i + 2], COORD_SIZE);
-        
         stlFile.read((char*)(normals + (3*i)), COORD_SIZE);
         stlFile.read((char*)(normals + (3*i + 1)), COORD_SIZE);
         stlFile.read((char*)(normals + (3*i + 2)), COORD_SIZE);
         
         for (int j=0; j<3; j++) {
             indices[3 * i + j] = 3 * i + j;
-            
-//            stlFile.read((char*)&vertices[9 * i + 3 * j], COORD_SIZE);
-//            stlFile.read((char*)&vertices[9 * i + 3 * j + 1], COORD_SIZE);
-//            stlFile.read((char*)&vertices[9 * i + 3 * j + 2], COORD_SIZE);
-            
+
             stlFile.read((char*)(vertices + (9 * i + 3 * j)), COORD_SIZE);
             stlFile.read((char*)(vertices + (9 * i + 3 * j + 1)), COORD_SIZE);
             stlFile.read((char*)(vertices + (9 * i + 3 * j + 2)), COORD_SIZE);
