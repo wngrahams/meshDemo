@@ -26,22 +26,9 @@ Geometry::Geometry (float *normals, float *vertices, int *indices, int numTris) 
     //join vertices, then calculate normals
     joinVertices();
     
-    for (int i=0; i<this->numVertices; i++) {
-        std::cout << this->vertices[3*i] << std::endl;
-        std::cout << this->vertices[3*i + 1] << std::endl;
-        std::cout << this->vertices[3*i + 2] << std::endl;
-        
-        //        std::cout << faceNormals[i] << std::endl;
-    }
-    
-    std::cout << std::endl;
-    
-    for (int i=0; i<this->numTriangles*3; i++) {
-        std::cout << this->indices[i] << std::endl;
-    }
-    
     //calculate face normals before calculating vertex normals:
     this->calculateFaceNormals();
+    this->calculateVertexNormals();
 }
 
 void Geometry::joinVertices() {

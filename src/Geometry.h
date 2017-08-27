@@ -16,6 +16,7 @@ class Geometry {
 public:
     
     Geometry (float *normals, float *vertices, int *indices, int numTris);
+    ~Geometry () {delete [] vertexNormals; delete [] faceNormals;}
     
     void joinVertices ();
     
