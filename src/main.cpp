@@ -120,67 +120,22 @@ int main () {
 //    Geometry geom = loadBinarySTL("res/models/001.stl");
     Geometry geom = loadBinarySTL("res/models/sphere_small.stl");
     
-//    GLfloat vertices[] =
-//    {
-//        -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,   0.0f, 0.0f,  //each group corresponds to a face
-//        0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,    1.0f, 0.0f,  //first three vals on each row are vertex positions
-//        0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,    1.0f, 1.0f, //second three are normal vectors, last two are textrue coords
-//        0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,    1.0f, 1.0f,
-//        -0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,   0.0f, 1.0f,
-//        -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,   0.0f, 0.0f,
-//        
-//        -0.5f, -0.5f,  0.5f,  0.0f,  0.0f,  1.0f,   0.0f, 0.0f,
-//        0.5f, -0.5f,  0.5f,  0.0f,  0.0f,  1.0f,    1.0f, 0.0f,
-//        0.5f,  0.5f,  0.5f,  0.0f,  0.0f,  1.0f,    1.0f, 1.0f,
-//        0.5f,  0.5f,  0.5f,  0.0f,  0.0f,  1.0f,    1.0f, 1.0f,
-//        -0.5f,  0.5f,  0.5f,  0.0f,  0.0f,  1.0f,   0.0f, 1.0f,
-//        -0.5f, -0.5f,  0.5f,  0.0f,  0.0f,  1.0f,   0.0f, 0.0f,
-//        
-//        -0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,   1.0f, 0.0f,
-//        -0.5f,  0.5f, -0.5f, -1.0f,  0.0f,  0.0f,   1.0f, 1.0f,
-//        -0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,   0.0f, 1.0f,
-//        -0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,   0.0f, 1.0f,
-//        -0.5f, -0.5f,  0.5f, -1.0f,  0.0f,  0.0f,   0.0f, 0.0f,
-//        -0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,   1.0f, 0.0f,
-//        
-//        0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,    1.0f, 0.0f,
-//        0.5f,  0.5f, -0.5f,  1.0f,  0.0f,  0.0f,    1.0f, 1.0f,
-//        0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,    0.0f, 1.0f,
-//        0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,    0.0f, 1.0f,
-//        0.5f, -0.5f,  0.5f,  1.0f,  0.0f,  0.0f,    0.0f, 0.0f,
-//        0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,    1.0f, 0.0f,
-//        
-//        -0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,   0.0f, 1.0f,
-//        0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,    1.0f, 1.0f,
-//        0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,    1.0f, 0.0f,
-//        0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,    1.0f, 0.0f,
-//        -0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,   0.0f, 0.0f,
-//        -0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,   0.0f, 1.0f,
-//        
-//        -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,   0.0f, 1.0f,
-//        0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,    1.0f, 1.0f,
-//        0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,    1.0f, 0.0f,
-//        0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,    1.0f, 0.0f,
-//        -0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,   0.0f, 0.0f,
-//        -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,   0.0f, 1.0f
-//    };
-//    
-//    std::vector<Vertex> vert;
-//    std::vector<GLuint> ind;
-//    std::vector<Texture> tex;
-//    Vertex temp;
-//    for (int i=0; i<36; i++) {
-//        temp.position = glm::vec3(vertices[3*i], vertices[3*i + 1], vertices[3*i + 2]);
-//        temp.normal = glm::vec3(3*i + 3, 3*i + 4, 3*i + 5);
-//        temp.texCoords = glm::vec2(3*i + 6, 3*i + 7);
-//        
-//        vert.push_back(temp);
-//        ind.push_back(i);
-//    }
-//    
-//    Mesh mesh(vert, ind, tex);
+    Shader lightingShader("res/shaders/lighting.vs", "res/shaders/lighting.frag");
     
+    GLfloat *geomData = new GLfloat[geom.getNumTriangles() * 18];
+    float *vert = geom.getVertices();
+    int *ind = geom.getIndices();
+    float *norm = geom.getVertexNormals();
+    for (int i=0; i<geom.getNumTriangles() * 3; i++) {
+        geomData[6 * i + 0] = vert[ind[i] * 3 + 0];
+        geomData[6 * i + 1] = vert[ind[i] * 3 + 1];
+        geomData[6 * i + 2] = vert[ind[i] * 3 + 2];
         
+        geomData[6 * i + 3] = norm[ind[i] * 3 + 0];
+        geomData[6 * i + 4] = norm[ind[i] * 3 + 1];
+        geomData[6 * i + 5] = norm[ind[i] * 3 + 2];
+    }
+    
     unsigned long frames = 0;
     bool line = false;
     
@@ -354,7 +309,6 @@ void mouseCallback (GLFWwindow *window, double xPos, double yPos) {
 void scrollCallback (GLFWwindow *window, double xOffset, double yOffset) {
     camera.processMouseScroll(yOffset);
 }
-
 
 
 
