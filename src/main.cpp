@@ -119,7 +119,9 @@ int main () {
    // Model loadedModel(modelPath);
     
 //    Geometry geom = loadBinarySTL("res/models/001.stl");
-    Geometry geom = loadBinarySTL("res/models/sphere.stl");
+//    Geometry geom = loadBinarySTL("res/models/sphere.stl");
+//    Geometry geom = loadBinarySTL("res/models/labrador.stl");
+    Geometry geom = loadBinarySTL("res/models/german_shepard.stl");
     
     Shader lightingShader("res/shaders/lighting.vs", "res/shaders/lighting.frag");
     Shader lampShader("res/shaders/lamp.vs", "res/shaders/lamp.frag");
