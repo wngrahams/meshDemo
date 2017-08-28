@@ -41,6 +41,10 @@ public:
         this->right = {-1.0f, 0.0f, 0.0f};
     }
     
+    Model(Mesh mesh) {
+        this->meshes.push_back(mesh);
+    }
+    
     void draw(Shader shader) {
         for (GLuint i=0; i<this->meshes.size(); i++)
             this->meshes[i].draw(shader);
