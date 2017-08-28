@@ -165,52 +165,6 @@ int main () {
     float angleX = 0.0f;
     float angleY = 0.0f;
     
-    ////////////////////////////////////////////////////////////////////////////// stl stuff
-//    //create vertex buffer object (VBO) and vertex array object (VAO) and element buffer object (EBO)
-//    GLuint VBO, boxVAO;
-//    glGenVertexArrays(1, &boxVAO);
-//    glGenBuffers(1, &VBO);
-//    
-//    //bind VAO
-//    glBindVertexArray(boxVAO);
-//    
-//    //bind and set VBO
-//    glBindBuffer(GL_ARRAY_BUFFER, VBO);
-//    glBufferData(GL_ARRAY_BUFFER, sizeof(geomData), &geomData[0], GL_STATIC_DRAW);
-//    
-//    //create vertex position attirbute               //number of info for each line
-//    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (GLvoid *) 0);
-//    glEnableVertexAttribArray(0);
-//    
-//    //Normal attribute
-//    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (GLvoid *)(3 * sizeof(GLfloat)));
-//    glEnableVertexAttribArray(1);
-//    
-//    //unbind VAO
-//    glBindVertexArray(0);
-//    
-//    //LIGHTING:
-//    
-//    GLuint lightVAO;
-//    glGenVertexArrays(1, &lightVAO);
-//    glGenBuffers(1, &VBO);
-//    
-//    //bind VAO
-//    glBindVertexArray(lightVAO);
-//    
-//    //bind and set VBO
-//    glBindBuffer(GL_ARRAY_BUFFER, VBO);
-//    glBufferData(GL_ARRAY_BUFFER, sizeof(geomData), &geomData[0], GL_STATIC_DRAW);
-//    
-//    //create vertex position attirbute               //number of info for each line
-//    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (GLvoid *) 0);
-//    glEnableVertexAttribArray(0);
-//    
-//    //unbind VAO
-//    glBindVertexArray(0);
-//    
-    ////////////////////////////////////////////////////////////////////////////// stl stuff
-    
     //draw loop
     while (!glfwWindowShouldClose(window)) {
         
@@ -243,7 +197,6 @@ int main () {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         
         
-        // stuff for the .obj model
         shader.use();
         
         glm::mat4 view = camera.getViewMatrix();
@@ -255,7 +208,7 @@ int main () {
         
         //scale model and set position
         glm::mat4 model;
-        model = glm::translate(model, glm::vec3(0.0f, -1.75f, 0.0f));
+        model = glm::translate(model, glm::vec3(0.0f, 0.0f, 2.0f));
         model *= glm::toMat4(xQuat);
         model *= glm::toMat4(yQuat);
 //        model *= glm::toMat4(xQuat);
@@ -263,60 +216,6 @@ int main () {
         
         glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
         loadedModel.draw(shader);
-//        mesh.draw(shader);
-        // end stuff for the .obj model
-        
-        //stuff for .stl model     //////////////////////////////////////////////////////////////////////////////
-//        lightingShader.use();
-//        GLint lightPosLoc = glGetUniformLocation( lightingShader.Program, "light.position");
-//        GLint viewPosLoc = glGetUniformLocation( lightingShader.Program, "viewPos");
-//        glUniform3f(lightPosLoc, lightPos.x, lightPos.y, lightPos.z);
-//        glUniform3f(viewPosLoc, camera.getPosition().x, camera.getPosition().y, camera.getPosition().z);
-//        
-//        glm::vec3 lightColor;
-//        lightColor.r = sin(glfwGetTime() * 2.0f);
-//        lightColor.g = sin(glfwGetTime() * 0.7f);
-//        lightColor.b = sin(glfwGetTime() * 1.3f);
-//        
-//        glm::vec3 diffuseColor = lightColor * glm::vec3(0.5f);
-//        glm::vec3 ambientColor = diffuseColor * glm::vec3(0.2f);
-//        glUniform3f(glGetUniformLocation(lightingShader.Program, "light.ambient"), ambientColor.r, ambientColor.g, ambientColor.b);
-//        glUniform3f(glGetUniformLocation(lightingShader.Program, "light.diffuse"), diffuseColor.r, diffuseColor.g, diffuseColor.b);
-//        glUniform3f(glGetUniformLocation(lightingShader.Program, "light.specular"), 1.0f, 1.0f, 1.0f);
-//        
-//        //material properties:
-//        glUniform3f(glGetUniformLocation(lightingShader.Program, "material.ambient"), 1.0f, 0.5f, 0.31f);
-//        glUniform3f(glGetUniformLocation(lightingShader.Program, "material.diffuse"), 1.0f, 0.5f, 0.31f);
-//        glUniform3f(glGetUniformLocation(lightingShader.Program, "material.specular"), 0.5f, 0.5f, 0.5f);
-//        glUniform1f(glGetUniformLocation(lightingShader.Program, "material.shininess"), 32.0f);
-//        
-//        glm::mat4 view = camera.getViewMatrix();
-//        
-//        GLint modelLoc = glGetUniformLocation(lightingShader.Program, "model");
-//        GLint viewLoc = glGetUniformLocation(lightingShader.Program, "view");
-//        GLint projLoc = glGetUniformLocation(lightingShader.Program, "projection");
-//        
-//        glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
-//        glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
-//        
-//        glm::quat xQuat = glm::angleAxis(angleX, loadedModel.right);
-//        glm::quat yQuat = glm::angleAxis(angleY, loadedModel.up);
-//        
-//        //scale model and set position
-//        glm::mat4 model;
-//        model = glm::translate(model, glm::vec3(0.0f, -0.75f, 0.0f));
-//        model *= glm::toMat4(xQuat);
-//        model *= glm::toMat4(yQuat);
-////        model *= glm::toMat4(xQuat);
-//        model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
-//        
-//        //draw container
-//        glBindVertexArray(boxVAO);
-//        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-//        glDrawArrays(GL_TRIANGLES, 0, geom.getNumTriangles()*3); //number of vertices
-//        
-//        glBindVertexArray(0);
-        //endl stuff for .stl model    /////////////////////////////////////////////////////////////////////////
         
         //swap sceen buffers
         glfwSwapBuffers(window);
