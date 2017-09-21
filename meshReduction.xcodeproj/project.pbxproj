@@ -18,6 +18,7 @@
 		9AD631091F4E86BB0006CE5C /* BinaryStlLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9AD631071F4E86BB0006CE5C /* BinaryStlLoader.cpp */; };
 		9AD6310E1F4F85970006CE5C /* Geometry.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9AD6310D1F4F85970006CE5C /* Geometry.cpp */; };
 		9AD631111F5075440006CE5C /* VertexJoiner.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9AD6310F1F5075440006CE5C /* VertexJoiner.cpp */; };
+		9AD631171F5616340006CE5C /* MeshReducer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9AD631151F5616340006CE5C /* MeshReducer.cpp */; };
 		9AD8673C1F3A713200C2168B /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9AD8673B1F3A713200C2168B /* main.cpp */; };
 		9AD867431F3A726E00C2168B /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AD867421F3A726E00C2168B /* OpenGL.framework */; };
 		9AD867451F3A72C000C2168B /* libGLEW.2.1.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AD867441F3A72C000C2168B /* libGLEW.2.1.0.dylib */; };
@@ -85,6 +86,8 @@
 		9AD6310D1F4F85970006CE5C /* Geometry.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Geometry.cpp; sourceTree = "<group>"; };
 		9AD6310F1F5075440006CE5C /* VertexJoiner.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = VertexJoiner.cpp; sourceTree = "<group>"; };
 		9AD631101F5075440006CE5C /* VertexJoiner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VertexJoiner.h; sourceTree = "<group>"; };
+		9AD631151F5616340006CE5C /* MeshReducer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MeshReducer.cpp; sourceTree = "<group>"; };
+		9AD631161F5616340006CE5C /* MeshReducer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeshReducer.h; sourceTree = "<group>"; };
 		9AD867381F3A713200C2168B /* meshReduction */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = meshReduction; sourceTree = BUILT_PRODUCTS_DIR; };
 		9AD8673B1F3A713200C2168B /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; usesTabs = 0; };
 		9AD867421F3A726E00C2168B /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
@@ -192,6 +195,8 @@
 				9AD6310D1F4F85970006CE5C /* Geometry.cpp */,
 				9AD6310F1F5075440006CE5C /* VertexJoiner.cpp */,
 				9AD631101F5075440006CE5C /* VertexJoiner.h */,
+				9AD631151F5616340006CE5C /* MeshReducer.cpp */,
+				9AD631161F5616340006CE5C /* MeshReducer.h */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
@@ -260,6 +265,7 @@
 				9AD8673C1F3A713200C2168B /* main.cpp in Sources */,
 				9AD5E04F1F3C8A0100E57071 /* image_DXT.c in Sources */,
 				9AD631091F4E86BB0006CE5C /* BinaryStlLoader.cpp in Sources */,
+				9AD631171F5616340006CE5C /* MeshReducer.cpp in Sources */,
 				9AD5E0511F3C8A0100E57071 /* SOIL2.c in Sources */,
 				9AD5E04E1F3C8A0100E57071 /* etc1_utils.c in Sources */,
 			);
