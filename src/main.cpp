@@ -119,9 +119,9 @@ int main () {
    // Model loadedModel(modelPath);
     
 //    Geometry geom = loadBinarySTL("res/models/001.stl");
-//    Geometry geom = loadBinarySTL("res/models/sphere.stl");
+    Geometry geom = loadBinarySTL("res/models/sphere.stl");
 //    Geometry geom = loadBinarySTL("res/models/labrador.stl");
-    Geometry geom = loadBinarySTL("res/models/german_shepard.stl");
+//    Geometry geom = loadBinarySTL("res/models/german_shepard.stl");
     
     Shader lightingShader("res/shaders/lighting.vs", "res/shaders/lighting.frag");
     Shader lampShader("res/shaders/lamp.vs", "res/shaders/lamp.frag");
@@ -207,13 +207,14 @@ int main () {
         
         glm::quat xQuat = glm::angleAxis(angleX, loadedModel.right);
         glm::quat yQuat = glm::angleAxis(angleY, loadedModel.up);
+//        glm::quat yQuat = glm::angleAxis(angleY, glm::vec3(0.0f, 0.0f, 1.0f));
         
         //scale model and set position
         glm::mat4 model;
         model = glm::translate(model, glm::vec3(0.0f, 0.0f, 2.0f));
-        model *= glm::toMat4(xQuat);
-        model *= glm::toMat4(yQuat);
 //        model *= glm::toMat4(xQuat);
+        model *= glm::toMat4(yQuat);
+        model *= glm::toMat4(xQuat);
         model = glm::scale(model, glm::vec3(0.2f, 0.2f, 0.2f));
         
         glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
@@ -224,7 +225,7 @@ int main () {
         
         frames++;
         
-        if (frames >= ULONG_LONG_MAX) {
+        if (frames >= ULONG_MAX) {
             frames = 0;
         }
     }
