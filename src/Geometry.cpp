@@ -12,10 +12,10 @@
 
 //TODO: delete any "new" arrays in the destructor
 
-Geometry::Geometry (float *normals, float *vertices, int *indices, int numTris) {
+Geometry::Geometry (float *normals, float *vertices, int *indices, int numTris, int numVerts) {
     
     this->numTriangles = numTris;
-    this->numVertices = numTris * 3;
+    this->numVertices = numVerts;
     
     this->faceNormals = normals;
     this->vertices = vertices;
@@ -32,7 +32,10 @@ Geometry::Geometry (float *normals, float *vertices, int *indices, int numTris) 
 }
 
 void Geometry::joinVertices() {
-    VertexJoiner *joiner = new VertexJoiner(this->indices, this->vertices, this->numTriangles*3, this->numVertices);
+    VertexJoiner *joiner = new VertexJoiner(this->indices,
+                                            this->vertices,
+                                            this->numTriangles*3,
+                                            this->numVertices);
     this->vertices = joiner->getVertices();
     this->indices = joiner->getIndices();
     
@@ -56,9 +59,11 @@ void Geometry::calculateFaceNormals() {
         v0 = {this->vertices[indices[3 * i + 0] * 3 + 0],
               this->vertices[indices[3 * i + 0] * 3 + 1],
               this->vertices[indices[3 * i + 0] * 3 + 2]};
+        
         v1 = {this->vertices[indices[3 * i + 1] * 3 + 0],
               this->vertices[indices[3 * i + 1] * 3 + 1],
               this->vertices[indices[3 * i + 1] * 3 + 2]};
+        
         v2 = {this->vertices[indices[3 * i + 2] * 3 + 0],
               this->vertices[indices[3 * i + 2] * 3 + 1],
               this->vertices[indices[3 * i + 2] * 3 + 2]};

@@ -38,6 +38,8 @@ Geometry loadBinarySTL (std::string filename) {
     
     char unusedBuffer[UNUSED_BUFFER_SIZE];
     
+    int numVerts = 0;
+    
     for (int i=0; i<numTriangles; i++) {
         
         stlFile.read((char*)(normals + (3*i)), COORD_SIZE);
@@ -50,6 +52,8 @@ Geometry loadBinarySTL (std::string filename) {
             stlFile.read((char*)(vertices + (9 * i + 3 * j)), COORD_SIZE);
             stlFile.read((char*)(vertices + (9 * i + 3 * j + 1)), COORD_SIZE);
             stlFile.read((char*)(vertices + (9 * i + 3 * j + 2)), COORD_SIZE);
+            
+            numVerts++;
         }
         
         stlFile.read(unusedBuffer, UNUSED_BUFFER_SIZE);
@@ -57,7 +61,7 @@ Geometry loadBinarySTL (std::string filename) {
     
     stlFile.close();
     
-    return Geometry(normals, vertices, indices, numTriangles);
+    return Geometry(normals, vertices, indices, numTriangles, numVerts);
 }
 
 
