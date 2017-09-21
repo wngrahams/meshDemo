@@ -115,7 +115,7 @@ int main () {
     
     Shader shader("res/shaders/modelLoading.vs", "res/shaders/modelLoading.frag");
 
-    char const *modelPath = "res/models/nanosuit.obj";
+    //char const *modelPath = "res/models/nanosuit.obj";
    // Model loadedModel(modelPath);
     
 //    Geometry geom = loadBinarySTL("res/models/001.stl");
